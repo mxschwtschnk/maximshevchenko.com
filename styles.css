@@ -244,12 +244,12 @@ a:hover {
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   display: grid;
   place-items: center;
-  align-content: start;
-  gap: var(--spacing-2);
+  align-content: center;
   cursor: pointer;
   padding: var(--spacing-2);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, width 0.35s ease, border-radius 0.35s ease,
-              padding 0.35s ease, gap 0.35s ease, min-height 0.35s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  color: inherit;
+  appearance: none;
 }
 
 .mobile-menu-toggle:hover {
@@ -263,7 +263,10 @@ a:hover {
 }
 
 .hamburger-lines {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 20px;
   height: 16px;
   display: inline-block;
@@ -344,12 +347,7 @@ a:hover {
 }
 
 .mobile-menu.open .mobile-menu-toggle {
-  width: 96px;
-  min-height: 46px;
-  border-radius: var(--nav-radius);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  padding: var(--spacing-3);
-  gap: var(--spacing-3);
 }
 
 .mobile-menu.open .mobile-menu-panel {
@@ -362,10 +360,6 @@ a:hover {
 
 .mobile-menu.open .mobile-menu-panel::before {
   opacity: 0.9;
-}
-
-.mobile-menu.open .hamburger-lines {
-  transform: translateY(2px);
 }
 
 .mobile-nav-links {
