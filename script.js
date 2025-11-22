@@ -3,16 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // Mobile menu toggle
   const mobileMenu = document.querySelector('.mobile-menu');
   const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-  const mobileMenuPanel = document.querySelector('.mobile-menu-panel');
+  const mobileNavLinks = document.querySelector('.mobile-nav-links');
 
-  if (mobileMenu && mobileMenuToggle && mobileMenuPanel) {
+  if (mobileMenu && mobileMenuToggle && mobileNavLinks) {
     const setMenuState = (isOpen) => {
       mobileMenu.classList.toggle('open', isOpen);
       mobileMenuToggle.classList.toggle('open', isOpen);
       mobileMenuToggle.setAttribute('aria-expanded', isOpen.toString());
-      if (mobileMenuPanel) {
-        mobileMenuPanel.setAttribute('aria-hidden', (!isOpen).toString());
-      }
+      mobileNavLinks.setAttribute('aria-hidden', (!isOpen).toString());
     };
 
     setMenuState(false);
@@ -25,9 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeMenu = () => setMenuState(false);
 
     mobileMenuToggle.addEventListener('click', function(event) {
-      if (mobileMenuPanel && mobileMenuPanel.contains(event.target)) {
-        return;
-      }
       event.stopPropagation();
       toggleMenu();
     });
@@ -40,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Close menu when clicking on a link
-    const links = mobileMenuPanel.querySelectorAll('a');
+    const links = mobileNavLinks.querySelectorAll('a');
     links.forEach(link => {
       link.addEventListener('click', function() {
         closeMenu();
