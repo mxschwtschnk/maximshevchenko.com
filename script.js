@@ -6,19 +6,37 @@ document.addEventListener('DOMContentLoaded', function() {
   const mobileMenuPanel = document.querySelector('.mobile-menu-panel');
 
   if (mobileMenu && mobileMenuToggle && mobileMenuPanel) {
-    mobileMenuToggle.setAttribute('aria-expanded', 'false');
-
-    const closeMenu = () => {
-      mobileMenu.classList.remove('open');
-      mobileMenuToggle.classList.remove('open');
-      mobileMenuToggle.setAttribute('aria-expanded', 'false');
-    };
-
-    mobileMenuToggle.addEventListener('click', function(event) {
-      event.stopPropagation();
-      const isOpen = mobileMenu.classList.toggle('open');
+    const setMenuState = (isOpen) => {
+      mobileMenu.classList.toggle('open', isOpen);
       mobileMenuToggle.classList.toggle('open', isOpen);
       mobileMenuToggle.setAttribute('aria-expanded', isOpen.toString());
+      if (mobileMenuPanel) {
+        mobileMenuPanel.setAttribute('aria-hidden', (!isOpen).toString());
+      }
+    };
+
+    setMenuState(false);
+
+    const toggleMenu = () => {
+      const isOpen = !mobileMenu.classList.contains('open');
+      setMenuState(isOpen);
+    };
+
+    const closeMenu = () => setMenuState(false);
+
+    mobileMenuToggle.addEventListener('click', function(event) {
+      if (mobileMenuPanel && mobileMenuPanel.contains(event.target)) {
+        return;
+      }
+      event.stopPropagation();
+      toggleMenu();
+    });
+
+    mobileMenuToggle.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleMenu();
+      }
     });
 
     // Close menu when clicking on a link
