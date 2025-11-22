@@ -3,10 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // Mobile menu toggle
   const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
   const navLinks = document.querySelector('.nav-links');
-  
+
   if (mobileMenuToggle && navLinks) {
+    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+
     mobileMenuToggle.addEventListener('click', function() {
-      navLinks.classList.toggle('active');
+      const isOpen = navLinks.classList.toggle('active');
+      mobileMenuToggle.classList.toggle('open', isOpen);
+      mobileMenuToggle.setAttribute('aria-expanded', isOpen.toString());
     });
     
     // Close menu when clicking on a link
@@ -14,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
     links.forEach(link => {
       link.addEventListener('click', function() {
         navLinks.classList.remove('active');
+        mobileMenuToggle.classList.remove('open');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
       });
     });
     
@@ -21,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(event) {
       if (!navLinks.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
         navLinks.classList.remove('active');
+        mobileMenuToggle.classList.remove('open');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
       }
     });
   }
