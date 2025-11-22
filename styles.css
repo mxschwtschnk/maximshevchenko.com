@@ -249,9 +249,12 @@ a:hover {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-4);
-  padding: var(--spacing-2) var(--spacing-4);
-  border-radius: var(--radius-pill);
+  justify-content: center;
+  gap: 0;
+  padding: var(--spacing-2);
+  min-width: 56px;
+  min-height: 56px;
+  border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
               radial-gradient(160% 160% at 82% 18%, rgba(255, 255, 255, 0.16), transparent 55%),
@@ -260,8 +263,8 @@ a:hover {
   backdrop-filter: blur(14px) saturate(150%);
   -webkit-backdrop-filter: blur(14px) saturate(150%);
   pointer-events: auto;
-  clip-path: circle(40% at 80% 50%);
-  transition: clip-path 0.45s ease, padding 0.25s ease, gap 0.25s ease, box-shadow 0.25s ease;
+  clip-path: circle(46% at 50% 50%);
+  transition: clip-path 0.45s ease, padding 0.25s ease, gap 0.25s ease, box-shadow 0.25s ease, border-radius 0.25s ease;
 }
 
 .mobile-menu-shell::before {
@@ -280,26 +283,22 @@ a:hover {
 
 .mobile-menu-toggle {
   position: relative;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.06);
   display: grid;
   place-items: center;
   align-content: center;
   cursor: pointer;
-  padding: var(--spacing-2);
-  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
   color: inherit;
   appearance: none;
   flex-shrink: 0;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .mobile-menu-toggle:hover {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.1);
 }
 
 .mobile-menu-toggle:focus-visible {
@@ -356,7 +355,7 @@ a:hover {
 
 .mobile-nav-links {
   list-style: none;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: var(--spacing-3);
   text-align: left;
@@ -377,10 +376,14 @@ a:hover {
 
 .mobile-menu.open .mobile-menu-shell {
   clip-path: circle(160% at 80% 50%);
+  padding: var(--spacing-2) var(--spacing-4);
+  gap: var(--spacing-4);
+  border-radius: var(--radius-pill);
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .mobile-menu.open .mobile-nav-links {
+  display: flex;
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
