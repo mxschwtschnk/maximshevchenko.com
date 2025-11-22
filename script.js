@@ -1,41 +1,45 @@
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
   // Mobile menu toggle
+  const mobileMenu = document.querySelector('.mobile-menu');
   const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
+  const mobileMenuPanel = document.querySelector('.mobile-menu-panel');
 
-  if (mobileMenuToggle && navLinks) {
+  if (mobileMenu && mobileMenuToggle && mobileMenuPanel) {
     mobileMenuToggle.setAttribute('aria-expanded', 'false');
 
-    mobileMenuToggle.addEventListener('click', function() {
-      const isOpen = navLinks.classList.toggle('active');
+    const closeMenu = () => {
+      mobileMenu.classList.remove('open');
+      mobileMenuToggle.classList.remove('open');
+      mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    mobileMenuToggle.addEventListener('click', function(event) {
+      event.stopPropagation();
+      const isOpen = mobileMenu.classList.toggle('open');
       mobileMenuToggle.classList.toggle('open', isOpen);
       mobileMenuToggle.setAttribute('aria-expanded', isOpen.toString());
     });
-    
+
     // Close menu when clicking on a link
-    const links = navLinks.querySelectorAll('a');
+    const links = mobileMenuPanel.querySelectorAll('a');
     links.forEach(link => {
       link.addEventListener('click', function() {
-        navLinks.classList.remove('active');
-        mobileMenuToggle.classList.remove('open');
-        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        closeMenu();
       });
     });
-    
+
     // Close menu when clicking outside
     document.addEventListener('click', function(event) {
-      if (!navLinks.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
-        navLinks.classList.remove('active');
-        mobileMenuToggle.classList.remove('open');
-        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+      if (!mobileMenu.contains(event.target)) {
+        closeMenu();
       }
     });
   }
   
   // Set active nav link based on current page
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  const navLinksAll = document.querySelectorAll('.nav-links a');
+  const navLinksAll = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
   
   navLinksAll.forEach(link => {
     const linkPath = link.getAttribute('href');
