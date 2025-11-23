@@ -956,7 +956,7 @@ a:hover {
     width: auto;
     height: 45vh;
     max-height: 350px;
-    opacity: 0.3;
+    opacity: 0.75;
   }
   
   .scroll-text {
@@ -990,7 +990,7 @@ a:hover {
     width: auto;
     height: 40vh;
     max-height: 300px;
-    opacity: 0.2;
+    opacity: 0.75;
   }
   
   .scroll-text {
