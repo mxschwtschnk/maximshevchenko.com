@@ -362,7 +362,7 @@ a:hover {
 .mobile-nav-links {
   list-style: none;
   position: relative;
-  margin-top: var(--spacing-2);
+  margin-top: 0;
   padding: 0;
   width: 0;
   background: none;
@@ -380,7 +380,7 @@ a:hover {
   transform: translateY(6px);
   pointer-events: none;
   overflow: hidden;
-  transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.35s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.35s ease, margin-top 0.3s ease;
 }
 
 .mobile-nav-links a {
@@ -426,6 +426,7 @@ a:hover {
   opacity: 1;
   max-height: 500px;
   transform: translateY(0);
+  margin-top: var(--spacing-2);
   width: 100%;
   padding: 0 var(--spacing-1) var(--spacing-1);
   gap: var(--spacing-3);
