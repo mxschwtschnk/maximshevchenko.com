@@ -561,36 +561,35 @@ a:hover {
   pointer-events: none;
 }
 
+
 .hero-text-container {
   position: absolute;
-  bottom: -1.5rem;
-  left: 0;
+  bottom: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
   right: 0;
   z-index: 2;
   width: 100%;
-  padding: 0;
+  max-width: calc(var(--maxw) + var(--spacing-8));
+  padding: 0 var(--spacing-4);
   background: transparent;
   pointer-events: none;
   mix-blend-mode: difference;
 }
 
 .hero-name-scroll {
-  width: 100vw;
+  width: 100%;
   overflow: hidden;
   white-space: nowrap;
   margin-bottom: 0;
   position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
 }
 
 .scroll-text {
   display: inline-flex;
   animation: scroll-horizontal 35s linear infinite;
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 14vw, 10rem);
+  font-size: clamp(4rem, 15vw, 11rem);
   font-weight: var(--font-weight-black);
   line-height: var(--line-height-tight);
   letter-spacing: 0.08em;
@@ -633,14 +632,10 @@ a:hover {
 }
 
 .skills-strip-scroll {
-  width: 100vw;
+  width: 100%;
   overflow: hidden;
   white-space: nowrap;
   position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
 }
 
 .scroll-skills {
