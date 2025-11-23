@@ -684,7 +684,8 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-kicker);
   margin-bottom: var(--spacing-8);
-  color: var(--fg);
+  color: #ddeddd;
+  text-align: center;
 }
 
 .section-heading::after {
@@ -895,7 +896,7 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-kicker);
   margin-bottom: var(--spacing-4);
-  color: var(--fg);
+  color: #ddeddd;
 }
 
 .cta-heading::after {
