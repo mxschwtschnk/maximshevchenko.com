@@ -614,13 +614,13 @@ a:hover {
 
 @keyframes float-orb {
   0% {
-    transform: translate3d(-14vw, 2vh, 0) scale(1.02);
+    transform: translate3d(-20vw, 2vh, 0) scale(1.02);
   }
   50% {
-    transform: translate3d(-4vw, 6vh, 0) scale(0.98);
+    transform: translate3d(-12vw, 6vh, 0) scale(0.98);
   }
   100% {
-    transform: translate3d(10vw, 4vh, 0) scale(1.04);
+    transform: translate3d(6vw, 4vh, 0) scale(1.04);
   }
 }
 
