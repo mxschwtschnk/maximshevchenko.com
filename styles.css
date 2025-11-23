@@ -388,7 +388,7 @@ a:hover {
 }
 
 .mobile-nav-links a {
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-body);
   letter-spacing: var(--letter-spacing-kicker);
   text-transform: uppercase;
   color: var(--fg);
