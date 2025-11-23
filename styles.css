@@ -262,6 +262,13 @@ a:hover {
   isolation: isolate;
 }
 
+@supports (top: env(safe-area-inset-top)) {
+  .mobile-menu {
+    top: calc(var(--spacing-4) + env(safe-area-inset-top));
+    right: calc(var(--spacing-4) + env(safe-area-inset-right));
+  }
+}
+
 .mobile-menu-shell {
   position: relative;
   display: inline-flex;
