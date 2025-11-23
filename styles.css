@@ -273,10 +273,6 @@ a:hover {
     min-width 0.35s ease;
 }
 
-.mobile-menu-toggle {
-  align-self: center;
-}
-
 .mobile-menu-shell::before {
   content: '';
   position: absolute;
@@ -305,6 +301,7 @@ a:hover {
   color: inherit;
   appearance: none;
   flex-shrink: 0;
+  align-self: flex-end;
 }
 
 .mobile-menu-toggle:hover {
@@ -318,9 +315,8 @@ a:hover {
 
 .hamburger-lines {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  margin: auto;
   width: 20px;
   height: 16px;
   display: inline-block;
