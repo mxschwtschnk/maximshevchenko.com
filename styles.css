@@ -256,7 +256,7 @@ a:hover {
 
 .mobile-menu {
   position: fixed;
-  top: var(--spacing-4);
+  bottom: var(--spacing-4);
   right: var(--spacing-4);
   z-index: 1200;
   display: none;
@@ -265,7 +265,7 @@ a:hover {
 
 @supports (top: env(safe-area-inset-top)) {
   .mobile-menu {
-    top: calc(var(--spacing-4) + env(safe-area-inset-top));
+    bottom: calc(var(--spacing-4) + env(safe-area-inset-bottom));
     right: calc(var(--spacing-4) + env(safe-area-inset-right));
   }
 }
@@ -273,7 +273,7 @@ a:hover {
 .mobile-menu-shell {
   position: relative;
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: flex-end;
   justify-content: center;
   gap: 0;
@@ -290,7 +290,7 @@ a:hover {
   -webkit-backdrop-filter: blur(14px) saturate(150%);
   pointer-events: auto;
   overflow: hidden;
-  transform-origin: top right;
+  transform-origin: bottom right;
   will-change: transform, padding, gap, box-shadow, border-radius, min-width;
   transition:
     padding 0.55s cubic-bezier(0.24, 0.82, 0.13, 1),
@@ -394,6 +394,7 @@ a:hover {
   list-style: none;
   position: relative;
   margin-top: 0;
+  margin-bottom: 0;
   padding: 0;
   width: 0;
   background: none;
@@ -408,17 +409,17 @@ a:hover {
   text-align: right;
   opacity: 0;
   max-height: 0;
-  transform: translateY(6px);
+  transform: translateY(-6px);
   pointer-events: none;
   overflow: hidden;
-  transform-origin: top right;
+  transform-origin: bottom right;
   filter: blur(12px) saturate(90%);
-  will-change: opacity, transform, max-height, margin-top, filter;
+  will-change: opacity, transform, max-height, margin-bottom, filter;
   transition:
     opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
     transform 0.55s cubic-bezier(0.21, 0.88, 0.26, 0.99),
     max-height 0.6s cubic-bezier(0.21, 0.88, 0.26, 0.99),
-    margin-top 0.45s ease,
+    margin-bottom 0.45s ease,
     filter 0.55s cubic-bezier(0.21, 0.88, 0.26, 0.99);
 }
 
@@ -469,7 +470,7 @@ a:hover {
   opacity: 1;
   max-height: 500px;
   transform: translateY(0);
-  margin-top: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
   width: 100%;
   padding: 0 var(--spacing-1) var(--spacing-1);
   gap: var(--spacing-3);
