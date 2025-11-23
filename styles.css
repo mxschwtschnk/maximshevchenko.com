@@ -364,16 +364,16 @@ a:hover {
   position: relative;
   margin-top: var(--spacing-2);
   padding: 0 var(--spacing-1) var(--spacing-1);
-  border-radius: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: var(--nav-bg);
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(14px) saturate(150%);
-  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  width: 100%;
+  background: none;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
-  text-align: left;
+  text-align: center;
   opacity: 0;
   max-height: 0;
   transform: translateY(6px);
@@ -389,6 +389,27 @@ a:hover {
   color: var(--fg);
   display: inline-block;
   padding: 0.1rem 0;
+  position: relative;
+  transition: opacity 0.2s ease;
+}
+
+.mobile-nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -0.18rem;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease, left 0.3s ease;
+  opacity: 0.9;
+}
+
+.mobile-nav-links a:hover::after,
+.mobile-nav-links a:focus-visible::after,
+.mobile-nav-links a.active::after {
+  width: 100%;
+  left: 0;
 }
 
 .mobile-menu.open .mobile-menu-shell {
@@ -397,7 +418,7 @@ a:hover {
   min-width: 240px;
   border-radius: 32px;
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  align-items: stretch;
+  align-items: center;
 }
 
 .mobile-menu.open .mobile-nav-links {
