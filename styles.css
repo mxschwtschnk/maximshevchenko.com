@@ -88,6 +88,23 @@ body {
   background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -30vh;
+  right: -25vw;
+  width: clamp(520px, 68vw, 880px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle at 40% 40%, rgba(72, 118, 94, 0.9), rgba(72, 118, 94, 0.45), transparent 68%);
+  filter: blur(120px);
+  opacity: 0.8;
+  z-index: 0;
+  pointer-events: none;
+  animation: float-orb 16s ease-in-out infinite alternate;
 }
 
 /* Typography */
@@ -592,6 +609,18 @@ a:hover {
   }
   100% {
     transform: translateX(calc(-100% / 3));
+  }
+}
+
+@keyframes float-orb {
+  0% {
+    transform: translate3d(6vw, 0, 0) scale(1.02);
+  }
+  50% {
+    transform: translate3d(2vw, 4vh, 0) scale(0.98);
+  }
+  100% {
+    transform: translate3d(-4vw, 2vh, 0) scale(1.04);
   }
 }
 
