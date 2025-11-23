@@ -20,8 +20,8 @@
   --font-weight-extrabold: 800;
   --font-weight-black: 900;
   
-  --line-height-tight: 1.1;
-  --line-height-snug: 1.3;
+  --line-height-tight: 1.6;
+  --line-height-snug: 1.6;
   --line-height-normal: 1.6;
   
   --font-size-display-hero: clamp(2.2rem, 6.2vw, 6rem);
@@ -112,7 +112,7 @@ body::before {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
+  line-height: var(--line-height-normal);
   letter-spacing: var(--letter-spacing-wide);
   color: var(--fg);
 }
@@ -705,6 +705,11 @@ a:hover {
   line-height: var(--line-height-normal);
   color: var(--muted);
   margin-bottom: var(--spacing-6);
+}
+
+.about-preview p:first-of-type {
+  font-size: var(--font-size-h3);
+  color: #fff;
 }
 
 /* Work Cards */
