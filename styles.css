@@ -326,7 +326,7 @@ a:hover {
   width: 20px;
   height: 16px;
   display: inline-block;
-  transition: transform 0.35s ease;
+  transition: transform 0.45s ease;
 }
 
 .hamburger-lines .line {
@@ -338,7 +338,7 @@ a:hover {
   height: 2px;
   background: currentColor;
   border-radius: var(--radius-pill);
-  transition: transform 0.25s ease, opacity 0.2s ease;
+  transition: transform 0.35s ease, opacity 0.3s ease;
 }
 
 .hamburger-lines .line:nth-child(1) {
