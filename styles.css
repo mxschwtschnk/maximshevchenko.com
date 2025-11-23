@@ -94,14 +94,14 @@ body {
 
 body::before {
   content: '';
-  position: fixed;
-  top: -30vh;
-  right: -25vw;
+  position: absolute;
+  top: -55vh;
+  right: -45vw;
   width: clamp(520px, 68vw, 880px);
   aspect-ratio: 1;
-  background: radial-gradient(circle at 40% 40%, rgba(72, 118, 94, 0.9), rgba(72, 118, 94, 0.45), transparent 68%);
-  filter: blur(120px);
-  opacity: 0.8;
+  background: radial-gradient(circle at 40% 40%, rgba(72, 118, 94, 0.6), rgba(72, 118, 94, 0.32), transparent 70%);
+  filter: blur(140px);
+  opacity: 0.6;
   z-index: 0;
   pointer-events: none;
   animation: float-orb 16s ease-in-out infinite alternate;
@@ -614,13 +614,13 @@ a:hover {
 
 @keyframes float-orb {
   0% {
-    transform: translate3d(6vw, 0, 0) scale(1.02);
+    transform: translate3d(-14vw, 2vh, 0) scale(1.02);
   }
   50% {
-    transform: translate3d(2vw, 4vh, 0) scale(0.98);
+    transform: translate3d(-4vw, 6vh, 0) scale(0.98);
   }
   100% {
-    transform: translate3d(-4vw, 2vh, 0) scale(1.04);
+    transform: translate3d(10vw, 4vh, 0) scale(1.04);
   }
 }
 
