@@ -670,11 +670,9 @@ a:hover {
 /* Sections */
 .section {
   padding: var(--spacing-10) 0;
-  border-top: 1px solid var(--lines);
 }
 
 .section:first-of-type {
-  border-top: none;
   padding-top: 0;
 }
 
@@ -1090,7 +1088,7 @@ a:hover {
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-kicker);
-  margin-bottom: var(--spacing-4);
+  margin-bottom: var(--spacing-8);
   color: #ddeddd;
 }
 
@@ -1109,32 +1107,48 @@ a:hover {
   gap: var(--spacing-4);
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: var(--spacing-4);
 }
 
 /* Buttons */
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-2);
-  padding: 0.7rem 1.2rem;
-  background: var(--accent);
+  padding: 0.78rem 1.5rem;
   color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+              radial-gradient(140% 160% at 18% 40%, rgba(39, 65, 51, 0.26), transparent 55%),
+              radial-gradient(140% 160% at 80% 18%, rgba(255, 255, 255, 0.18), transparent 60%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius-pill);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-kicker);
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease,
+    border-color 0.35s ease;
   text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .btn:hover {
-  background: color-mix(in srgb, var(--accent) 85%, white);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.01);
   opacity: 1;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03)),
+              radial-gradient(150% 170% at 22% 36%, rgba(70, 132, 104, 0.32), transparent 52%),
+              radial-gradient(140% 160% at 82% 16%, rgba(255, 255, 255, 0.2), transparent 60%);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .btn-arrow {
