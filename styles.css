@@ -91,6 +91,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   overflow-x: hidden;
+  padding-bottom: var(--spacing-10);
 }
 
 body::before {
@@ -957,7 +958,6 @@ a:hover {
 
 /* Experience Timeline */
 .experience-section {
-  margin-top: var(--spacing-10);
   display: flex;
   flex-direction: column;
   align-items: center;
