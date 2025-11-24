@@ -1218,9 +1218,9 @@ a:hover {
 
 .mobile-work-card__gallery img {
   width: 100%;
-  border-radius: var(--radius-md);
+  /*border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);*/
 }
 
 .mobile-work-card__footer {
