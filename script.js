@@ -193,6 +193,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const projectModalGallery = projectModal?.querySelector('.project-modal__gallery');
   const projectModalAccordion = projectModal?.querySelector('.project-modal__accordion');
   const projectModalAccordionToggle = projectModal?.querySelector('.project-modal__accordion-toggle');
+  if (projectModalDescription) {
+    projectModalDescription.id = 'project-description';
+  }
   const projectModalClose = projectModal?.querySelector('.project-modal__close');
   const syncAccordionHeight = () => {
     if (!projectModalThumb || !projectModalAccordion) return;
@@ -284,16 +287,12 @@ document.addEventListener('DOMContentLoaded', function() {
       projectModalDescription.appendChild(p);
     });
 
-    if (projectModalAccordionToggle) {
+    if (projectModalAccordionToggle && projectModalAccordion) {
       projectModalAccordionToggle.textContent = 'Read more';
       projectModalAccordionToggle.setAttribute('aria-expanded', 'false');
-      const lastParagraph = projectModalDescription.querySelector('p:last-of-type');
-      if (lastParagraph) {
-        lastParagraph.appendChild(document.createTextNode(' '));
-        lastParagraph.appendChild(projectModalAccordionToggle);
-      } else {
-        projectModalDescription.appendChild(projectModalAccordionToggle);
-      }
+      projectModalAccordionToggle.setAttribute('aria-controls', 'project-description');
+      projectModalAccordionToggle.remove();
+      projectModalAccordion.appendChild(projectModalAccordionToggle);
     }
 
     projectModalMeta.innerHTML = '';
@@ -314,6 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     projectModalAccordion?.classList.remove('is-open');
+    projectModalAccordion?.setAttribute('data-open', 'false');
 
     syncAccordionHeight();
     projectModal.classList.add('is-active');
@@ -365,9 +365,10 @@ document.addEventListener('DOMContentLoaded', function() {
     projectModalAccordionToggle?.addEventListener('click', (event) => {
       event.preventDefault();
       const isOpen = projectModalAccordion?.classList.toggle('is-open');
-      if (!projectModalAccordionToggle) return;
+      if (!projectModalAccordionToggle || !projectModalAccordion) return;
       projectModalAccordionToggle.textContent = isOpen ? 'Show less' : 'Read more';
       projectModalAccordionToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      projectModalAccordion.setAttribute('data-open', isOpen ? 'true' : 'false');
     });
 
     window.addEventListener('keydown', (event) => {
