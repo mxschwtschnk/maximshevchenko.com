@@ -107,7 +107,7 @@ body.modal-open {
 body::before {
   content: '';
   position: absolute;
-  top: -25vh;
+  top: -55vh;
   right: -45vw;
   width: clamp(520px, 68vw, 880px);
   aspect-ratio: 1;
@@ -1488,7 +1488,7 @@ a:hover {
   position: absolute;
   inset: auto;
   left: 50%;
-  bottom: -12%;
+  bottom: -50%;
   width: clamp(520px, 70vw, 960px);
   aspect-ratio: 1;
   background: radial-gradient(circle at 45% 50%, rgba(72, 118, 94, 0.75), rgba(72, 118, 94, 0.46), transparent 68%);
