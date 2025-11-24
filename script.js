@@ -352,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function() {
     mobility: {
       title: 'Mobility Platform',
       image: 'Thumb_switch.png',
-      gallery: ['Thumb_switch.png'],
+      gallery: ['switch1.png'],
       description: [
         'As a Senior Product Designer I lead the public transport area of the hvv switch app—Hamburg’s mobility platform that blends public transport with shared mobility.',
         'The role requires close collaboration with stakeholders from a publicly owned company, aligning high volumes of regulatory requirements with accessibility standards and a clear product vision.',
@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
     erp: {
       title: 'ERP Application',
       image: 'Thumb_erp.png',
-      gallery: ['Thumb_erp.png'],
+      gallery: ['erp1.png'],
       description: [
         'I led the end-to-end process from research and service blueprints to MVP prototypes, usability testing, and final UI delivery.',
         'The design translated complex requirements into a core tool for staff and students, improving efficiency and reducing operational bottlenecks.',
@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
     telemedicine: {
       title: 'Telemedicine Platform',
       image: 'Thumb_medicare.png',
-      gallery: ['Thumb_medicare.png'],
+      gallery: ['medicare1.png'],
       description: [
         'I guided the project from research and journey mapping to prototyping, testing, and development sprints, focusing on accessibility for elderly users.',
         'Interfaces emphasize larger touch targets, intuitive navigation, and a clear visual language to lower cognitive load and build trust.',
