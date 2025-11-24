@@ -53,13 +53,47 @@ document.addEventListener('DOMContentLoaded', function() {
   // Set active nav link based on current page
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const navLinksAll = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
-  
+  const desktopNavContainer = document.querySelector('.nav-container');
+  const desktopNavLinks = desktopNavContainer?.querySelectorAll('.nav-links a');
+  let navIndicator;
+
   navLinksAll.forEach(link => {
     const linkPath = link.getAttribute('href');
     if (linkPath === currentPage || (currentPage === '' && linkPath === 'index.html') || (currentPage === 'index.html' && linkPath === 'index.html')) {
       link.classList.add('active');
     }
   });
+
+  if (desktopNavContainer && desktopNavLinks && desktopNavLinks.length) {
+    navIndicator = document.createElement('span');
+    navIndicator.className = 'nav-indicator';
+    desktopNavContainer.appendChild(navIndicator);
+
+    const getActiveLink = () => desktopNavContainer.querySelector('.nav-links a.active') || desktopNavLinks[0];
+
+    const moveIndicator = (targetLink) => {
+      if (!targetLink || !navIndicator) return;
+
+      const { offsetLeft, offsetWidth, offsetTop, offsetHeight } = targetLink;
+      const paddingX = 14;
+      navIndicator.style.width = `${offsetWidth + paddingX * 2}px`;
+      navIndicator.style.left = `${offsetLeft - paddingX}px`;
+      navIndicator.style.top = `${offsetTop + offsetHeight / 2}px`;
+      navIndicator.style.opacity = '1';
+    };
+
+    const setIndicatorToActive = () => moveIndicator(getActiveLink());
+
+    desktopNavLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => moveIndicator(link));
+      link.addEventListener('focus', () => moveIndicator(link));
+    });
+
+    desktopNavContainer.addEventListener('mouseleave', setIndicatorToActive);
+    window.addEventListener('resize', setIndicatorToActive);
+
+    setIndicatorToActive();
+  }
   
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
