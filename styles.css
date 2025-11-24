@@ -1055,7 +1055,8 @@ a:hover {
   justify-content: center;
   gap: var(--spacing-2);
   padding: 0;
-  margin: 0 0 var(--spacing-5);
+  margin: 0 0 var(--spacing-6);
+  padding-bottom: var(--spacing-2);
 }
 
 .project-modal__pill {
@@ -1097,28 +1098,44 @@ a:hover {
 }
 
 .project-modal__accordion {
+  --project-accordion-height: var(--project-thumb-height);
   flex: 1 1 320px;
   background: none;
   border: none;
   border-radius: 0;
   padding: clamp(0.75rem, 1.4vw, 1.1rem) 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  align-items: start;
   gap: var(--spacing-2);
-  max-height: var(--project-thumb-height);
-  overflow: hidden;
-  transition: max-height 0.35s ease;
   position: relative;
-}
-
-.project-modal__accordion.is-open {
-  max-height: 1200px;
 }
 
 .project-modal__description {
   display: grid;
   gap: var(--spacing-2);
+  max-height: var(--project-accordion-height);
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.35s ease;
+}
+
+.project-modal__description::after {
+  content: '';
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(180deg, rgba(16, 18, 20, 0) 0%, rgba(16, 18, 20, 0.8) 100%);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.project-modal__accordion.is-open .project-modal__description {
+  max-height: 1200px;
+}
+
+.project-modal__accordion.is-open .project-modal__description::after {
+  opacity: 0;
 }
 
 .project-modal__description p {
@@ -1186,14 +1203,35 @@ a:hover {
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.36);
   backdrop-filter: blur(18px) saturate(160%);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.project-modal__close::after {
+  content: '';
+  position: absolute;
+  inset: -45%;
+  background: radial-gradient(140% 140% at var(--glow-x, 50%) var(--glow-y, 50%), rgba(70, 132, 104, 0.6), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  mix-blend-mode: screen;
 }
 
 .project-modal__close:hover,
 .project-modal__close:focus-visible {
   transform: translateY(-1px) scale(1.04);
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06));
+  background:
+    linear-gradient(140deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06)),
+    radial-gradient(120% 120% at 20% 20%, rgba(70, 132, 104, 0.45), transparent 55%),
+    radial-gradient(140% 140% at 80% 10%, rgba(255, 255, 255, 0.3), transparent 60%);
   border-color: rgba(255, 255, 255, 0.36);
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.project-modal__close:hover::after,
+.project-modal__close:focus-visible::after {
+  opacity: 1;
 }
 
 @media (max-width: 720px) {

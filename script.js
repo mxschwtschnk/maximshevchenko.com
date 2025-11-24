@@ -194,6 +194,24 @@ document.addEventListener('DOMContentLoaded', function() {
   const projectModalAccordion = projectModal?.querySelector('.project-modal__accordion');
   const projectModalAccordionToggle = projectModal?.querySelector('.project-modal__accordion-toggle');
   const projectModalClose = projectModal?.querySelector('.project-modal__close');
+  const syncAccordionHeight = () => {
+    if (!projectModalThumb || !projectModalAccordion) return;
+
+    const measuredHeight = projectModalThumb.getBoundingClientRect().height;
+    if (measuredHeight) {
+      projectModalAccordion.style.setProperty('--project-accordion-height', `${Math.round(measuredHeight)}px`);
+    }
+  };
+  const updateCloseButtonGlow = (event) => {
+    if (!projectModalClose) return;
+
+    const rect = projectModalClose.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+    projectModalClose.style.setProperty('--glow-x', `${x}%`);
+    projectModalClose.style.setProperty('--glow-y', `${y}%`);
+  };
 
   const projectDetails = {
     mobility: {
@@ -247,12 +265,10 @@ document.addEventListener('DOMContentLoaded', function() {
     projectModalThumb.alt = `${details.title || panelTitle?.textContent || 'Project'} preview`;
     projectModalTitle.textContent = details.title || panelTitle?.textContent || 'Project';
     projectModalDescription.innerHTML = '';
-    let lastParagraph = null;
     (details.description || []).forEach(paragraph => {
       const p = document.createElement('p');
       p.textContent = paragraph;
       projectModalDescription.appendChild(p);
-      lastParagraph = p;
     });
 
     projectModalMeta.innerHTML = '';
@@ -276,15 +292,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (projectModalAccordionToggle) {
       projectModalAccordionToggle.textContent = 'Read more';
       projectModalAccordionToggle.setAttribute('aria-expanded', 'false');
-
-      if (lastParagraph) {
-        lastParagraph.appendChild(document.createTextNode(' '));
-        lastParagraph.appendChild(projectModalAccordionToggle);
-      } else {
-        projectModalDescription.appendChild(projectModalAccordionToggle);
-      }
+      projectModalAccordion?.appendChild(projectModalAccordionToggle);
     }
 
+    syncAccordionHeight();
     projectModal.classList.add('is-active');
     projectModal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
@@ -325,6 +336,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     projectModalClose?.addEventListener('click', closeProjectModal);
+    projectModalClose?.addEventListener('pointermove', updateCloseButtonGlow);
+    projectModalClose?.addEventListener('pointerleave', () => {
+      projectModalClose.style.removeProperty('--glow-x');
+      projectModalClose.style.removeProperty('--glow-y');
+    });
 
     projectModalAccordionToggle?.addEventListener('click', (event) => {
       event.preventDefault();
@@ -339,6 +355,9 @@ document.addEventListener('DOMContentLoaded', function() {
         closeProjectModal();
       }
     });
+
+    projectModalThumb?.addEventListener('load', syncAccordionHeight);
+    window.addEventListener('resize', syncAccordionHeight);
   }
 });
 
