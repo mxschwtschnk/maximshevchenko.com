@@ -1414,11 +1414,12 @@ a:hover {
 .cta-section::after {
   content: '';
   position: absolute;
-  bottom: -12vh;
-  left: -24vw;
-  width: clamp(540px, 72vw, 940px);
+  top: 10%;
+  left: 50%;
+  width: clamp(520px, 68vw, 900px);
   aspect-ratio: 1;
-  background: radial-gradient(circle at 38% 45%, rgba(72, 118, 94, 0.75), rgba(72, 118, 94, 0.46), transparent 68%);
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 45% 50%, rgba(72, 118, 94, 0.75), rgba(72, 118, 94, 0.46), transparent 68%);
   filter: blur(118px);
   opacity: 0.9;
   z-index: 0;
