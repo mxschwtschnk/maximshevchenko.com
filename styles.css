@@ -908,6 +908,7 @@ a:hover {
   cursor: grab;
   user-select: none;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+  animation: panel-float 12s ease-in-out infinite alternate;
 }
 
 .desktop-panel:active {
@@ -951,7 +952,7 @@ a:hover {
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
-  animation: panel-drift 11s ease-in-out infinite alternate;
+  transform: scale(var(--panel-img-scale));
 }
 
 .desktop-panel:hover .desktop-panel__body img {
@@ -959,20 +960,20 @@ a:hover {
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
-@keyframes panel-drift {
-  0% { transform: translate3d(0, 0, 0) scale(var(--panel-img-scale)); }
-  50% { transform: translate3d(6px, -4px, 0) scale(var(--panel-img-scale)); }
-  100% { transform: translate3d(-6px, 6px, 0) scale(var(--panel-img-scale)); }
+.desktop-panel:nth-child(2) {
+  animation-duration: 14s;
+  animation-delay: -2s;
 }
 
-.desktop-panel:nth-child(2) .desktop-panel__body img {
-  animation-duration: 13s;
-  animation-delay: -3s;
+.desktop-panel:nth-child(3) {
+  animation-duration: 16s;
+  animation-delay: -4s;
 }
 
-.desktop-panel:nth-child(3) .desktop-panel__body img {
-  animation-duration: 15s;
-  animation-delay: -5s;
+@keyframes panel-float {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(8px, -10px, 0); }
+  100% { transform: translate3d(-8px, 12px, 0); }
 }
 
 @media (max-width: 900px) {
