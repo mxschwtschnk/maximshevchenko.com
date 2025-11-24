@@ -799,6 +799,163 @@ a:hover {
   line-height: var(--line-height-snug);
 }
 
+/* Work Desktop */
+.work-desktop-section {
+  padding: clamp(0.8rem, 2vw, 1.4rem);
+  position: relative;
+  isolation: isolate;
+}
+
+.desktop-shell {
+  position: relative;
+  min-height: calc(100vh - var(--nav-height) - clamp(2.4rem, 5vw, 4rem));
+  width: min(1320px, calc(100% - clamp(1.2rem, 3vw, 2.4rem)));
+  margin: 0 auto;
+  padding: clamp(0.9rem, 2vw, 1.6rem);
+  border-radius: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(145deg, rgba(12, 13, 15, 0.85), rgba(13, 15, 17, 0.75));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.desktop-shell__header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 clamp(0.4rem, 1vw, 0.8rem) clamp(0.9rem, 1.8vw, 1.2rem);
+}
+
+.desktop-shell__title {
+  font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+  margin: 0;
+  letter-spacing: 0.12em;
+}
+
+.desktop-stage {
+  position: relative;
+  z-index: 2;
+  min-height: clamp(520px, 70vh, 720px);
+  margin-top: clamp(0.8rem, 1.8vw, 1.2rem);
+  border-radius: 1rem;
+  background: radial-gradient(110% 140% at 24% 28%, rgba(70, 132, 104, 0.14), transparent 52%),
+              radial-gradient(90% 120% at 80% 50%, rgba(255, 255, 255, 0.06), transparent 50%),
+              rgba(8, 9, 11, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.desktop-panel {
+  position: absolute;
+  top: var(--panel-top);
+  left: var(--panel-left);
+  width: clamp(260px, 32vw, 360px);
+  background:
+    linear-gradient(130deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05)),
+    radial-gradient(160% 180% at 20% 20%, rgba(70, 132, 104, 0.28), transparent 55%),
+    radial-gradient(120% 140% at 80% 10%, rgba(255, 255, 255, 0.18), transparent 55%),
+    rgba(14, 15, 18, 0.6);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px) saturate(165%);
+  -webkit-backdrop-filter: blur(16px) saturate(165%);
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  animation: panel-drift 11s ease-in-out infinite alternate;
+}
+
+.desktop-panel:active {
+  cursor: grabbing;
+  transform: translateY(-1px);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.5);
+}
+
+.desktop-panel.is-dragging {
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.55);
+  transition: none;
+  animation: none;
+  transform: translate3d(0, 0, 0);
+}
+
+.desktop-panel__bar {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+}
+
+.desktop-panel__title {
+  margin: 0;
+  font-size: var(--font-size-small);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.desktop-panel__body {
+  display: grid;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3);
+}
+
+.desktop-panel__body img {
+  width: 100%;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+@keyframes panel-drift {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(6px, -4px, 0); }
+  100% { transform: translate3d(-6px, 6px, 0); }
+}
+
+.desktop-panel:nth-child(2) {
+  animation-duration: 13s;
+  animation-delay: -3s;
+}
+
+.desktop-panel:nth-child(3) {
+  animation-duration: 15s;
+  animation-delay: -5s;
+}
+
+@media (max-width: 900px) {
+  .desktop-shell {
+    width: 100%;
+    padding: clamp(0.8rem, 1.6vw, 1.2rem);
+  }
+
+  .desktop-stage {
+    min-height: 680px;
+  }
+}
+
+@media (max-width: 720px) {
+  .desktop-stage {
+    display: grid;
+    gap: var(--spacing-4);
+    padding: var(--spacing-3);
+    border-style: solid;
+  }
+
+  .desktop-panel {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+  }
+}
+
 /* Experience Timeline */
 .experience-section {
   margin-top: var(--spacing-10);
