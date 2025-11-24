@@ -50,28 +50,49 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Set active nav link based on current page
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  // Navigation indicator and anchor highlighting
   const navLinksAll = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
   const desktopNavContainer = document.querySelector('.nav-container');
   const desktopNavLinks = desktopNavContainer?.querySelectorAll('.nav-links a');
+  const observedSections = document.querySelectorAll('section[id]');
   let navIndicator;
+  let moveIndicator = () => {};
+  let setIndicatorToActive = () => {};
 
-  navLinksAll.forEach(link => {
-    const linkPath = link.getAttribute('href');
-    if (linkPath === currentPage || (currentPage === '' && linkPath === 'index.html') || (currentPage === 'index.html' && linkPath === 'index.html')) {
-      link.classList.add('active');
+  const getLinkTargetId = (link) => {
+    const href = link.getAttribute('href');
+    if (!href) return '';
+
+    try {
+      const url = new URL(href, window.location.href);
+      return url.hash.replace('#', '');
+    } catch (e) {
+      return href.replace('#', '');
     }
-  });
+  };
+
+  const setActiveLinkById = (targetId) => {
+    if (!targetId) return;
+    let matchFound = false;
+    navLinksAll.forEach(link => {
+      const linkTarget = getLinkTargetId(link);
+      const isMatch = linkTarget === targetId;
+      if (isMatch) {
+        matchFound = true;
+      }
+      link.classList.toggle('active', isMatch);
+    });
+    if (matchFound) {
+      setIndicatorToActive();
+    }
+  };
 
   if (desktopNavContainer && desktopNavLinks && desktopNavLinks.length) {
     navIndicator = document.createElement('span');
     navIndicator.className = 'nav-indicator';
     desktopNavContainer.appendChild(navIndicator);
 
-    const getActiveLink = () => desktopNavContainer.querySelector('.nav-links a.active') || desktopNavLinks[0];
-
-    const moveIndicator = (targetLink) => {
+    moveIndicator = (targetLink) => {
       if (!targetLink || !navIndicator) return;
 
       const { offsetLeft, offsetWidth, offsetTop, offsetHeight } = targetLink;
@@ -82,7 +103,10 @@ document.addEventListener('DOMContentLoaded', function() {
       navIndicator.style.opacity = '1';
     };
 
-    const setIndicatorToActive = () => moveIndicator(getActiveLink());
+    setIndicatorToActive = () => {
+      const activeDesktopLink = desktopNavContainer.querySelector('.nav-links a.active') || desktopNavLinks[0];
+      moveIndicator(activeDesktopLink);
+    };
 
     desktopNavLinks.forEach(link => {
       link.addEventListener('mouseenter', () => moveIndicator(link));
@@ -91,26 +115,58 @@ document.addEventListener('DOMContentLoaded', function() {
 
     desktopNavContainer.addEventListener('mouseleave', setIndicatorToActive);
     window.addEventListener('resize', setIndicatorToActive);
-
-    setIndicatorToActive();
   }
-  
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
-      if (href !== '#') {
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      }
-    });
+
+  const scrollToTarget = (hash) => {
+    const target = document.querySelector(hash);
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
+  const handleNavLinkClick = (event) => {
+    const href = event.currentTarget.getAttribute('href');
+    if (!href) return;
+
+    const url = new URL(href, window.location.href);
+    const targetHash = url.hash;
+
+    if (targetHash && document.querySelector(targetHash)) {
+      event.preventDefault();
+      scrollToTarget(targetHash);
+      history.replaceState(null, '', targetHash);
+      setActiveLinkById(targetHash.replace('#', ''));
+    }
+  };
+
+  navLinksAll.forEach(link => {
+    link.addEventListener('click', handleNavLinkClick);
   });
+
+  if (observedSections.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveLinkById(entry.target.id);
+        }
+      });
+    }, {
+      threshold: 0.35,
+      rootMargin: '-20% 0px -40% 0px'
+    });
+
+    observedSections.forEach(section => observer.observe(section));
+  }
+
+  const initialActiveId = window.location.hash.replace('#', '') || observedSections[0]?.id || getLinkTargetId(navLinksAll[0]);
+  if (initialActiveId) {
+    setActiveLinkById(initialActiveId);
+  }
+
+  setIndicatorToActive();
 
   // Hero image tilt effect on cursor movement
   const heroImage = document.querySelector('.hero-image');
