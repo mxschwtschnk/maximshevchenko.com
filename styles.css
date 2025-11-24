@@ -1099,20 +1099,31 @@ a:hover {
 
 .project-modal__accordion {
   --project-accordion-height: var(--project-thumb-height);
+  --project-accordion-closed-max: var(--project-thumb-height);
+  --project-accordion-lines: 6;
   flex: 1 1 320px;
   background: none;
   border: none;
   border-radius: 0;
   padding: clamp(0.75rem, 1.4vw, 1.1rem) 0;
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr;
   align-items: start;
   gap: var(--spacing-2);
   position: relative;
+  max-height: var(--project-accordion-closed-max);
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.project-modal__accordion.is-open {
+  max-height: none;
+  overflow: visible;
 }
 
 .project-modal__description {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-2);
   max-height: var(--project-accordion-height);
   overflow: hidden;
@@ -1121,17 +1132,11 @@ a:hover {
 }
 
 .project-modal__description::after {
-  content: '';
-  position: absolute;
-  inset: 45% 0 0;
-  background: linear-gradient(180deg, rgba(16, 18, 20, 0) 0%, rgba(16, 18, 20, 0.8) 100%);
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.25s ease;
+  content: none;
 }
 
 .project-modal__accordion.is-open .project-modal__description {
-  max-height: 1200px;
+  max-height: none;
 }
 
 .project-modal__accordion.is-open .project-modal__description::after {
@@ -1159,6 +1164,7 @@ a:hover {
   font-size: clamp(1rem, 1.1vw, 1.08rem);
   text-decoration: underline;
   padding: 0;
+  vertical-align: baseline;
 }
 
 .project-modal__accordion-toggle:hover,
