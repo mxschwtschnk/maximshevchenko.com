@@ -163,6 +163,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     observedSections.forEach(section => observer.observe(section));
+
+    let isTicking = false;
+    const updateActiveSection = () => {
+      if (!observedSections.length) return;
+      if (isTicking) return;
+      isTicking = true;
+
+      requestAnimationFrame(() => {
+        isTicking = false;
+        const scrollPosition = window.scrollY + window.innerHeight * 0.3;
+
+        let currentSectionId = observedSections[0].id;
+        observedSections.forEach((section) => {
+          if (section.offsetTop <= scrollPosition) {
+            currentSectionId = section.id;
+          }
+        });
+
+        setActiveLinkById(currentSectionId);
+      });
+    };
+
+    updateActiveSection();
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
   }
 
   const initialActiveId = window.location.hash.replace('#', '') || observedSections[0]?.id || getLinkTargetId(navLinksAll[0]);
