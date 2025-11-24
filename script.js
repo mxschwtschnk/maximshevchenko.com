@@ -339,8 +339,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // CTA button glow tracking
   const ctaButtons = document.querySelectorAll('.cta-links .btn');
+  const navCtaButtons = document.querySelectorAll('.nav-cta');
 
-  ctaButtons.forEach(button => {
+  [...ctaButtons, ...navCtaButtons].forEach(button => {
     button.addEventListener('pointermove', updateCtaButtonGlow);
     button.addEventListener('pointerleave', () => {
       button.style.removeProperty('--glow-x');
