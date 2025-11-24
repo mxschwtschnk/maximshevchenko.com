@@ -1177,9 +1177,9 @@ a:hover {
   text-decoration: underline;
   padding: 0;
   vertical-align: baseline;
-  justify-self: end;
-  align-self: end;
-  text-align: right;
+  justify-self: start;
+  align-self: start;
+  text-align: left;
 }
 
 .project-modal__accordion-toggle:hover,
