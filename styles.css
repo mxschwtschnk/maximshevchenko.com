@@ -119,6 +119,21 @@ body::before {
   animation: float-orb 16s ease-in-out infinite alternate;
 }
 
+body::after {
+  content: '';
+  position: fixed;
+  left: -28vw;
+  bottom: -42vh;
+  width: clamp(520px, 68vw, 900px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle at 45% 50%, rgba(72, 118, 94, 0.75), rgba(72, 118, 94, 0.46), transparent 68%);
+  filter: blur(118px);
+  opacity: 0.9;
+  z-index: 0;
+  pointer-events: none;
+  animation: float-orb-bottom 12s ease-in-out infinite alternate;
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
@@ -1409,22 +1424,6 @@ a:hover {
 .cta-section .container {
   position: relative;
   z-index: 1;
-}
-
-.cta-section::after {
-  content: '';
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  width: clamp(520px, 68vw, 900px);
-  aspect-ratio: 1;
-  transform: translateX(-50%);
-  background: radial-gradient(circle at 45% 50%, rgba(72, 118, 94, 0.75), rgba(72, 118, 94, 0.46), transparent 68%);
-  filter: blur(118px);
-  opacity: 0.9;
-  z-index: 0;
-  pointer-events: none;
-  animation: float-orb-bottom 12s ease-in-out infinite alternate;
 }
 
 .cta-heading {
