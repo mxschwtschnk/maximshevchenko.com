@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (desktopStage && desktopPanels.length) {
     let highestZ = 30;
+    let didDrag = false;
 
     desktopPanels.forEach(panel => {
       const bar = panel.querySelector('.desktop-panel__bar');
@@ -147,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
         panel.style.zIndex = (++highestZ).toString();
 
         const handlePointerMove = (moveEvent) => {
+          didDrag = true;
           const stageBounds = desktopStage.getBoundingClientRect();
           const currentPanelRect = panel.getBoundingClientRect();
           const maxLeft = stageBounds.width - currentPanelRect.width - 12;
@@ -166,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
           panel.classList.remove('is-dragging');
           window.removeEventListener('pointermove', handlePointerMove);
           window.removeEventListener('pointerup', handlePointerUp);
+          setTimeout(() => { didDrag = false; }, 0);
         };
 
         window.addEventListener('pointermove', handlePointerMove);
@@ -177,6 +180,126 @@ document.addEventListener('DOMContentLoaded', function() {
       };
 
       panel.addEventListener('pointerdown', pointerDownHandler);
+    });
+  }
+
+  // Project modal interactions
+  const projectModal = document.querySelector('.project-modal');
+  const projectModalContent = projectModal?.querySelector('.project-modal__content');
+  const projectModalImage = projectModal?.querySelector('.project-modal__media img');
+  const projectModalCategory = projectModal?.querySelector('.project-modal__category');
+  const projectModalTitle = projectModal?.querySelector('.project-modal__title');
+  const projectModalSummary = projectModal?.querySelector('.project-modal__summary');
+  const projectModalMeta = projectModal?.querySelector('.project-modal__meta');
+  const projectModalClose = projectModal?.querySelector('.project-modal__close');
+
+  const projectDetails = {
+    mobility: {
+      title: 'Mobility Platform',
+      category: 'Mobility · Rider & Operator',
+      summary: 'End-to-end experience for riders and operators with live fleet tracking, seamless ticketing, and driver workflows.',
+      image: 'Thumb_switch.png',
+      tags: ['Product design', 'Consumer app', 'Operations dashboard']
+    },
+    erp: {
+      title: 'ERP Application',
+      category: 'Enterprise · Automation',
+      summary: 'Modular ERP workspace covering finance, inventory, and planning with customizable dashboards and approvals.',
+      image: 'Thumb_erp.png',
+      tags: ['Enterprise UX', 'Design system', 'Data visualization']
+    },
+    telemedicine: {
+      title: 'Telemedicine Platform',
+      category: 'Healthcare · Remote care',
+      summary: 'Telehealth ecosystem connecting patients, clinicians, and pharmacy partners through secure virtual care flows.',
+      image: 'Thumb_medicare.png',
+      tags: ['Health tech', 'Patient portal', 'Cross-platform']
+    }
+  };
+
+  const openProjectModal = (panel) => {
+    if (!projectModal || !projectModalContent || !projectModalImage || !projectModalCategory || !projectModalTitle || !projectModalSummary || !projectModalMeta) return;
+
+    const panelKey = panel.dataset.panel;
+    const previewImg = panel.querySelector('img');
+    const panelTitle = panel.querySelector('.desktop-panel__title');
+    const details = projectDetails[panelKey] || {};
+
+    const imageSource = details.image || previewImg?.dataset.fullsize || previewImg?.getAttribute('src') || '';
+    const summaryCopy = details.summary || previewImg?.getAttribute('alt') || 'Multi-screen product experience.';
+
+    projectModalImage.src = imageSource;
+    projectModalImage.alt = `${details.title || panelTitle?.textContent || 'Project'} preview`;
+    projectModalCategory.textContent = details.category || 'Case study';
+    projectModalTitle.textContent = details.title || panelTitle?.textContent || 'Project';
+    projectModalSummary.textContent = summaryCopy;
+
+    projectModalMeta.innerHTML = '';
+    (details.tags || []).forEach(tag => {
+      const pill = document.createElement('li');
+      pill.className = 'project-modal__pill';
+      pill.textContent = tag;
+      projectModalMeta.appendChild(pill);
+    });
+
+    projectModal.classList.add('is-active');
+    projectModal.setAttribute('aria-hidden', 'false');
+
+    const startRect = panel.getBoundingClientRect();
+    const finalRect = projectModalContent.getBoundingClientRect();
+    const translateX = startRect.left - finalRect.left;
+    const translateY = startRect.top - finalRect.top;
+    const scaleX = startRect.width / finalRect.width;
+    const scaleY = startRect.height / finalRect.height;
+
+    projectModalContent.animate([
+      { transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})` },
+      { transform: 'translate(0, 0) scale(1, 1)' }
+    ], {
+      duration: 450,
+      easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
+    });
+  };
+
+  const closeProjectModal = () => {
+    if (!projectModal) return;
+    projectModal.classList.remove('is-active');
+    projectModal.setAttribute('aria-hidden', 'true');
+  };
+
+  if (projectModal && desktopPanels.length) {
+    desktopPanels.forEach(panel => {
+      panel.addEventListener('pointerdown', () => { didDrag = false; });
+      panel.addEventListener('pointermove', () => { didDrag = true; });
+
+      panel.addEventListener('click', (event) => {
+        if (didDrag) {
+          event.preventDefault();
+          return;
+        }
+        openProjectModal(panel);
+      });
+
+      panel.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openProjectModal(panel);
+        }
+      });
+    });
+
+    projectModal.addEventListener('click', (event) => {
+      if (event.target === projectModal) {
+        closeProjectModal();
+      }
+    });
+
+    projectModalClose?.addEventListener('click', closeProjectModal);
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && projectModal.classList.contains('is-active')) {
+        closeProjectModal();
+      }
     });
   }
 });
