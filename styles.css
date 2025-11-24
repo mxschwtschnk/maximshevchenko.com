@@ -302,6 +302,28 @@ a:hover {
   letter-spacing: var(--letter-spacing-kicker);
 }
 
+.nav-cta::after {
+  content: '';
+  position: absolute;
+  inset: -45%;
+  background: radial-gradient(140% 140% at var(--glow-x, 50%) var(--glow-y, 50%), rgba(70, 132, 104, 0.6), transparent 60%);
+  opacity: 0.12;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.nav-cta:hover,
+.nav-cta:focus-visible {
+  transform: scale(1.02);
+  opacity: 1;
+}
+
+.nav-cta:hover::after,
+.nav-cta:focus-visible::after {
+  opacity: 0.4;
+}
+
 .nav-cta--outside {
   flex-shrink: 0;
   z-index: 2;
