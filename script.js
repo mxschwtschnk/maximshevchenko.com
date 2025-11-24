@@ -339,6 +339,139 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
+  const mobileWorkLists = document.querySelectorAll('[data-mobile-work-list]');
+
+  const createTagPills = (tags = []) => {
+    const list = document.createElement('ul');
+    list.className = 'mobile-work-card__tags';
+    tags.forEach(tag => {
+      const pill = document.createElement('li');
+      pill.className = 'mobile-work-card__tag';
+      pill.textContent = tag;
+      list.appendChild(pill);
+    });
+    return list;
+  };
+
+  const createGallery = (images = [], title = 'Project preview') => {
+    const gallery = document.createElement('div');
+    gallery.className = 'mobile-work-card__gallery';
+    images.forEach((src, index) => {
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.src = src;
+      img.alt = `${title} screen ${index + 1}`;
+      gallery.appendChild(img);
+    });
+    return gallery;
+  };
+
+  const toggleMobileCard = (card, expand) => {
+    const details = card.querySelector('.mobile-work-card__details');
+    const shouldOpen = expand !== undefined ? expand : !card.classList.contains('is-open');
+    card.classList.toggle('is-open', shouldOpen);
+    card.setAttribute('aria-expanded', shouldOpen.toString());
+    if (details) {
+      details.style.maxHeight = shouldOpen ? `${details.scrollHeight}px` : '0px';
+    }
+  };
+
+  const createMobileCard = (key, details) => {
+    const card = document.createElement('article');
+    card.className = 'mobile-work-card';
+    card.dataset.panel = key;
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-expanded', 'false');
+
+    const bar = document.createElement('div');
+    bar.className = 'mobile-work-card__bar';
+    const barTitle = document.createElement('h3');
+    barTitle.textContent = details.title;
+    const chevron = document.createElement('span');
+    chevron.className = 'mobile-work-card__chevron';
+    chevron.textContent = '⌄';
+    bar.append(barTitle, chevron);
+
+    const main = document.createElement('div');
+    main.className = 'mobile-work-card__main';
+
+    const thumb = document.createElement('img');
+    thumb.className = 'mobile-work-card__thumb';
+    thumb.src = details.thumb;
+    thumb.alt = `${details.title} preview`;
+
+    const content = document.createElement('div');
+    content.className = 'mobile-work-card__content';
+    const heading = document.createElement('h3');
+    heading.className = 'mobile-work-card__title';
+    heading.textContent = details.title;
+    const summary = document.createElement('p');
+    summary.className = 'mobile-work-card__text';
+    summary.textContent = details.description?.[0] || '';
+    content.append(heading, summary);
+
+    main.append(thumb, content);
+
+    const detailsWrapper = document.createElement('div');
+    detailsWrapper.className = 'mobile-work-card__details';
+
+    const tagPills = createTagPills(details.tags);
+    const descriptionBlock = document.createElement('div');
+    descriptionBlock.className = 'mobile-work-card__description';
+    (details.description || []).forEach(paragraph => {
+      const p = document.createElement('p');
+      p.textContent = paragraph;
+      descriptionBlock.appendChild(p);
+    });
+
+    const gallery = createGallery(details.gallery?.length ? details.gallery : [details.image], details.title);
+
+    detailsWrapper.append(tagPills, descriptionBlock, gallery);
+
+    card.append(bar, main, detailsWrapper);
+
+    const galleryImages = detailsWrapper.querySelectorAll('img');
+    galleryImages.forEach(img => {
+      img.addEventListener('load', () => {
+        if (card.classList.contains('is-open')) {
+          toggleMobileCard(card, true);
+        }
+      });
+    });
+
+    const toggleHandler = () => toggleMobileCard(card);
+    card.addEventListener('click', toggleHandler);
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleHandler();
+      }
+    });
+
+    return card;
+  };
+
+  if (mobileWorkLists.length) {
+    const order = ['mobility', 'erp', 'telemedicine'];
+
+    mobileWorkLists.forEach(list => {
+      list.innerHTML = '';
+      order.forEach(key => {
+        const details = projectDetails[key];
+        if (!details) return;
+        list.appendChild(createMobileCard(key, details));
+      });
+    });
+
+    const refreshOpenAccordions = () => {
+      const openCards = document.querySelectorAll('.mobile-work-card.is-open');
+      openCards.forEach(card => toggleMobileCard(card, true));
+    };
+
+    window.addEventListener('resize', refreshOpenAccordions);
+  }
+
   const openProjectModal = (panel) => {
     if (!projectModal || !projectModalContent || !projectModalThumb || !projectModalTitle || !projectModalMeta || !projectModalDescription || !projectModalGallery) return;
 
