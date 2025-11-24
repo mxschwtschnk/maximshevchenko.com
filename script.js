@@ -388,30 +388,18 @@ document.addEventListener('DOMContentLoaded', function() {
     bar.className = 'mobile-work-card__bar';
     const barTitle = document.createElement('h3');
     barTitle.textContent = details.title;
-    const chevron = document.createElement('span');
-    chevron.className = 'mobile-work-card__chevron';
-    chevron.textContent = '⌄';
-    bar.append(barTitle, chevron);
+    bar.append(barTitle);
 
-    const main = document.createElement('div');
-    main.className = 'mobile-work-card__main';
+    const body = document.createElement('div');
+    body.className = 'mobile-work-card__body';
 
-    const thumb = document.createElement('img');
-    thumb.className = 'mobile-work-card__thumb';
-    thumb.src = details.thumb;
-    thumb.alt = `${details.title} preview`;
-
-    const content = document.createElement('div');
-    content.className = 'mobile-work-card__content';
-    const heading = document.createElement('h3');
-    heading.className = 'mobile-work-card__title';
-    heading.textContent = details.title;
-    const summary = document.createElement('p');
-    summary.className = 'mobile-work-card__text';
-    summary.textContent = details.description?.[0] || '';
-    content.append(heading, summary);
-
-    main.append(thumb, content);
+    const preview = document.createElement('figure');
+    preview.className = 'mobile-work-card__preview';
+    const previewImg = document.createElement('img');
+    previewImg.src = details.thumb;
+    previewImg.alt = `${details.title} preview`;
+    previewImg.loading = 'lazy';
+    preview.appendChild(previewImg);
 
     const detailsWrapper = document.createElement('div');
     detailsWrapper.className = 'mobile-work-card__details';
@@ -419,17 +407,42 @@ document.addEventListener('DOMContentLoaded', function() {
     const tagPills = createTagPills(details.tags);
     const descriptionBlock = document.createElement('div');
     descriptionBlock.className = 'mobile-work-card__description';
-    (details.description || []).forEach(paragraph => {
+    descriptionBlock.dataset.expanded = 'false';
+
+    const leadParagraph = document.createElement('p');
+    leadParagraph.className = 'mobile-work-card__description-lead';
+    leadParagraph.textContent = details.description?.[0] || '';
+    descriptionBlock.appendChild(leadParagraph);
+
+    const extraDescription = document.createElement('div');
+    extraDescription.className = 'mobile-work-card__description-extra';
+    (details.description || []).slice(1).forEach(paragraph => {
       const p = document.createElement('p');
       p.textContent = paragraph;
-      descriptionBlock.appendChild(p);
+      extraDescription.appendChild(p);
+    });
+    descriptionBlock.appendChild(extraDescription);
+
+    const readMoreToggle = document.createElement('button');
+    readMoreToggle.type = 'button';
+    readMoreToggle.className = 'mobile-work-card__read-more';
+    readMoreToggle.textContent = 'Read more';
+
+    readMoreToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const isExpanded = descriptionBlock.dataset.expanded === 'true';
+      descriptionBlock.dataset.expanded = (!isExpanded).toString();
+      descriptionBlock.classList.toggle('is-expanded', !isExpanded);
+      readMoreToggle.textContent = isExpanded ? 'Read more' : 'Show less';
+      toggleMobileCard(card, true);
     });
 
     const gallery = createGallery(details.gallery?.length ? details.gallery : [details.image], details.title);
 
-    detailsWrapper.append(tagPills, descriptionBlock, gallery);
+    detailsWrapper.append(tagPills, descriptionBlock, readMoreToggle, gallery);
 
-    card.append(bar, main, detailsWrapper);
+    body.append(preview, detailsWrapper);
+    card.append(bar, body);
 
     const galleryImages = detailsWrapper.querySelectorAll('img');
     galleryImages.forEach(img => {
