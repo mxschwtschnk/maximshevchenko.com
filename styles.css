@@ -119,22 +119,6 @@ body::before {
   animation: float-orb 16s ease-in-out infinite alternate;
 }
 
-body::after {
-  content: '';
-  position: fixed;
-  bottom: -60vh;
-  left: -32vw;
-  width: clamp(540px, 72vw, 940px);
-  aspect-ratio: 1;
-  background: radial-gradient(circle at 38% 45%, rgba(72, 118, 94, 0.75), rgba(72, 118, 94, 0.46), transparent 68%);
-  filter: blur(118px);
-  opacity: 0.9;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  animation: float-orb-bottom 12s ease-in-out infinite alternate;
-}
-
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
@@ -1353,8 +1337,31 @@ a:hover {
 
 /* CTA Section */
 .cta-section {
+  position: relative;
   text-align: center;
   padding: var(--spacing-10) 0 var(--spacing-8) 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cta-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-section::after {
+  content: '';
+  position: absolute;
+  bottom: -58vh;
+  left: -32vw;
+  width: clamp(540px, 72vw, 940px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle at 38% 45%, rgba(72, 118, 94, 0.75), rgba(72, 118, 94, 0.46), transparent 68%);
+  filter: blur(118px);
+  opacity: 0.9;
+  z-index: 0;
+  pointer-events: none;
+  animation: float-orb-bottom 12s ease-in-out infinite alternate;
 }
 
 .cta-heading {
@@ -1456,28 +1463,6 @@ a:hover {
 }
 
 .contact-email:hover {
-  opacity: 0.8;
-}
-
-/* Footer */
-.footer {
-  padding: var(--spacing-8) 0;
-  border-top: 1px solid var(--lines);
-  text-align: left;
-  margin-top: auto;
-}
-
-.footer a {
-  color: var(--accent);
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-kicker);
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.footer a:hover {
   opacity: 0.8;
 }
 
