@@ -212,65 +212,11 @@ document.addEventListener('DOMContentLoaded', function() {
     animate();
   }
 
-  // Desktop panel dragging
   const desktopStage = document.querySelector('.desktop-stage');
   const desktopPanels = document.querySelectorAll('.desktop-panel');
   let didDrag = false;
-
-  if (desktopStage && desktopPanels.length) {
-    let highestZ = 30;
-    desktopPanels.forEach(panel => {
-      const bar = panel.querySelector('.desktop-panel__bar');
-      if (!bar) return;
-
-      panel.style.zIndex = (++highestZ).toString();
-
-      const pointerDownHandler = (event) => {
-        if (event.button !== 0 && event.pointerType === 'mouse') return;
-        if (!bar.contains(event.target)) return;
-
-        const panelRect = panel.getBoundingClientRect();
-        const offsetX = event.clientX - panelRect.left;
-        const offsetY = event.clientY - panelRect.top;
-
-        panel.classList.add('is-dragging');
-        panel.style.zIndex = (++highestZ).toString();
-
-        const handlePointerMove = (moveEvent) => {
-          didDrag = true;
-          const stageBounds = desktopStage.getBoundingClientRect();
-          const currentPanelRect = panel.getBoundingClientRect();
-          const maxLeft = stageBounds.width - currentPanelRect.width - 12;
-          const maxTop = stageBounds.height - currentPanelRect.height - 12;
-
-          let nextLeft = moveEvent.clientX - stageBounds.left - offsetX;
-          let nextTop = moveEvent.clientY - stageBounds.top - offsetY;
-
-          nextLeft = Math.max(12, Math.min(nextLeft, maxLeft));
-          nextTop = Math.max(12, Math.min(nextTop, maxTop));
-
-          panel.style.left = `${nextLeft}px`;
-          panel.style.top = `${nextTop}px`;
-        };
-
-        const handlePointerUp = () => {
-          panel.classList.remove('is-dragging');
-          window.removeEventListener('pointermove', handlePointerMove);
-          window.removeEventListener('pointerup', handlePointerUp);
-          setTimeout(() => { didDrag = false; }, 0);
-        };
-
-        window.addEventListener('pointermove', handlePointerMove);
-        window.addEventListener('pointerup', handlePointerUp);
-
-        if (panel.setPointerCapture) {
-          panel.setPointerCapture(event.pointerId);
-        }
-      };
-
-      panel.addEventListener('pointerdown', pointerDownHandler);
-    });
-  }
+  const desktopMediaQuery = window.matchMedia('(min-width: 861px)');
+  let desktopPanelsInitialized = false;
 
   // Project modal interactions
   const projectModal = document.querySelector('.project-modal');
@@ -453,8 +399,63 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.remove('modal-open');
   };
 
-  if (projectModal && desktopPanels.length) {
+  const attachDesktopPanelInteractions = () => {
+    if (desktopPanelsInitialized || !desktopMediaQuery.matches) return;
+    if (!projectModal || !desktopStage || !desktopPanels.length) return;
+
+    desktopPanelsInitialized = true;
+    let highestZ = 30;
+
     desktopPanels.forEach(panel => {
+      const bar = panel.querySelector('.desktop-panel__bar');
+      if (!bar) return;
+
+      panel.style.zIndex = (++highestZ).toString();
+
+      const pointerDownHandler = (event) => {
+        if (event.button !== 0 && event.pointerType === 'mouse') return;
+        if (!bar.contains(event.target)) return;
+
+        const panelRect = panel.getBoundingClientRect();
+        const offsetX = event.clientX - panelRect.left;
+        const offsetY = event.clientY - panelRect.top;
+
+        panel.classList.add('is-dragging');
+        panel.style.zIndex = (++highestZ).toString();
+
+        const handlePointerMove = (moveEvent) => {
+          didDrag = true;
+          const stageBounds = desktopStage.getBoundingClientRect();
+          const currentPanelRect = panel.getBoundingClientRect();
+          const maxLeft = stageBounds.width - currentPanelRect.width - 12;
+          const maxTop = stageBounds.height - currentPanelRect.height - 12;
+
+          let nextLeft = moveEvent.clientX - stageBounds.left - offsetX;
+          let nextTop = moveEvent.clientY - stageBounds.top - offsetY;
+
+          nextLeft = Math.max(12, Math.min(nextLeft, maxLeft));
+          nextTop = Math.max(12, Math.min(nextTop, maxTop));
+
+          panel.style.left = `${nextLeft}px`;
+          panel.style.top = `${nextTop}px`;
+        };
+
+        const handlePointerUp = () => {
+          panel.classList.remove('is-dragging');
+          window.removeEventListener('pointermove', handlePointerMove);
+          window.removeEventListener('pointerup', handlePointerUp);
+          setTimeout(() => { didDrag = false; }, 0);
+        };
+
+        window.addEventListener('pointermove', handlePointerMove);
+        window.addEventListener('pointerup', handlePointerUp);
+
+        if (panel.setPointerCapture) {
+          panel.setPointerCapture(event.pointerId);
+        }
+      };
+
+      panel.addEventListener('pointerdown', pointerDownHandler);
       panel.addEventListener('pointerdown', () => { didDrag = false; });
       panel.addEventListener('pointermove', () => { didDrag = true; });
 
@@ -506,6 +507,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     projectModalThumb?.addEventListener('load', syncAccordionHeight);
     window.addEventListener('resize', syncAccordionHeight);
+  };
+
+  if (desktopMediaQuery.matches) {
+    attachDesktopPanelInteractions();
   }
+
+  desktopMediaQuery.addEventListener('change', (event) => {
+    if (event.matches) {
+      attachDesktopPanelInteractions();
+    }
+  });
 });
 

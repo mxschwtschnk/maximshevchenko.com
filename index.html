@@ -46,20 +46,22 @@
 
   <div class="mobile-menu" aria-label="Mobile menu">
     <div class="mobile-menu-shell">
-      <button class="mobile-menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
-        <span class="hamburger-lines" aria-hidden="true">
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-        </span>
-      </button>
+      <div class="mobile-menu-bar">
+        <a class="btn mobile-nav-cta" href="Maxim_Shevchenko-Tymchuk_CV_Product-Designer.pdf" target="_blank">Get CV</a>
+        <button class="mobile-menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+          <span class="hamburger-lines" aria-hidden="true">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+          </span>
+        </button>
+      </div>
       <ul class="mobile-nav-links" aria-hidden="true" role="menu">
         <li><a href="index.html#home">Home</a></li>
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#work">Work</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
-      <a class="btn mobile-nav-cta" href="Maxim_Shevchenko-Tymchuk_CV_Product-Designer.pdf" target="_blank">Get CV</a>
     </div>
   </div>
 
@@ -86,6 +88,37 @@
           <span class="skill-item">design leadership</span><span class="skill-dash"> — </span><span class="skill-item">user interface</span><span class="skill-dash"> — </span><span class="skill-item">visual design</span><span class="skill-dash"> — </span><span class="skill-item">user experience</span><span class="skill-dash"> — </span><span class="skill-item">product design</span><span class="skill-dash"> — </span>
           <span class="skill-item">design leadership</span><span class="skill-dash"> — </span><span class="skill-item">user interface</span><span class="skill-dash"> — </span><span class="skill-item">visual design</span><span class="skill-dash"> — </span><span class="skill-item">user experience</span><span class="skill-dash"> — </span><span class="skill-item">product design</span><span class="skill-dash"> — </span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="work-mobile-section" aria-label="Work projects mobile">
+    <div class="container">
+      <header class="mobile-work__header">
+        <h2 class="section-heading">work</h2>
+      </header>
+      <div class="mobile-work__list">
+        <article class="mobile-work-card">
+          <img src="thumb_switch.png" alt="Mobility Platform preview" class="mobile-work-card__thumb">
+          <div class="mobile-work-card__content">
+            <h3 class="mobile-work-card__title">Mobility Platform</h3>
+            <p class="mobile-work-card__text">Led design for Hamburg’s hvv switch mobility platform that blends public transport with shared mobility.</p>
+          </div>
+        </article>
+        <article class="mobile-work-card">
+          <img src="thumb_erp.png" alt="ERP Application preview" class="mobile-work-card__thumb">
+          <div class="mobile-work-card__content">
+            <h3 class="mobile-work-card__title">ERP Application</h3>
+            <p class="mobile-work-card__text">Delivered end-to-end research, UX, and UI for a large-scale training ERP that streamlined operations.</p>
+          </div>
+        </article>
+        <article class="mobile-work-card">
+          <img src="thumb_medicare.png" alt="Telemedicine Platform preview" class="mobile-work-card__thumb">
+          <div class="mobile-work-card__content">
+            <h3 class="mobile-work-card__title">Telemedicine Platform</h3>
+            <p class="mobile-work-card__text">Built a multi-device telemedicine experience with intuitive patient and clinician workflows.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -174,43 +207,76 @@
   </section>
 
   <!-- Work Section -->
-  <section class="work-desktop-section" id="work" aria-label="Work projects desktop">
-    <div class="container">
-      <div class="desktop-shell">
-        <header class="desktop-shell__header">
-          <h2 class="section-heading desktop-shell__title">work</h2>
+  <section id="work">
+    <section class="work-desktop-section" aria-label="Work projects desktop">
+      <div class="container">
+        <div class="desktop-shell">
+          <header class="desktop-shell__header">
+            <h2 class="section-heading desktop-shell__title">work</h2>
+          </header>
+
+          <div class="desktop-stage" aria-live="polite">
+            <article class="desktop-panel" data-panel="mobility" style="--panel-top: 14%; --panel-left: 12%;" tabindex="0" role="button" aria-label="Open Mobility Platform project">
+              <header class="desktop-panel__bar" aria-label="Mobility Platform window">
+                <p class="desktop-panel__title section-subheading">Mobility Platform</p>
+              </header>
+              <div class="desktop-panel__body">
+                <img src="thumb_switch.png" alt="Preview of Mobility Platform interface">
+              </div>
+            </article>
+
+            <article class="desktop-panel" data-panel="erp" style="--panel-top: 32%; --panel-left: 46%;" tabindex="0" role="button" aria-label="Open ERP Application project">
+              <header class="desktop-panel__bar" aria-label="ERP Application window">
+                <p class="desktop-panel__title section-subheading">ERP Application</p>
+              </header>
+              <div class="desktop-panel__body">
+                <img src="thumb_erp.png" alt="Preview of ERP application dashboard">
+              </div>
+            </article>
+
+            <article class="desktop-panel" data-panel="telemedicine" style="--panel-top: 55%; --panel-left: 22%;" tabindex="0" role="button" aria-label="Open Telemedicine Platform project">
+              <header class="desktop-panel__bar" aria-label="Telemedicine Platform window">
+                <p class="desktop-panel__title section-subheading">Telemedicine Platform</p>
+              </header>
+              <div class="desktop-panel__body">
+                <img src="thumb_medicare.png" alt="Preview of telemedicine platform UI">
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="work-mobile-section" aria-label="Work projects mobile">
+      <div class="container">
+        <header class="mobile-work__header">
+          <h2 class="section-heading">work</h2>
         </header>
-
-        <div class="desktop-stage" aria-live="polite">
-          <article class="desktop-panel" data-panel="mobility" style="--panel-top: 14%; --panel-left: 12%;" tabindex="0" role="button" aria-label="Open Mobility Platform project">
-            <header class="desktop-panel__bar" aria-label="Mobility Platform window">
-              <p class="desktop-panel__title section-subheading">Mobility Platform</p>
-            </header>
-            <div class="desktop-panel__body">
-              <img src="thumb_switch.png" alt="Preview of Mobility Platform interface">
+        <div class="mobile-work__list">
+          <article class="mobile-work-card">
+            <img src="thumb_switch.png" alt="Mobility Platform preview" class="mobile-work-card__thumb">
+            <div class="mobile-work-card__content">
+              <h3 class="mobile-work-card__title">Mobility Platform</h3>
+              <p class="mobile-work-card__text">Led design for Hamburg’s hvv switch mobility platform that blends public transport with shared mobility.</p>
             </div>
           </article>
-
-          <article class="desktop-panel" data-panel="erp" style="--panel-top: 32%; --panel-left: 46%;" tabindex="0" role="button" aria-label="Open ERP Application project">
-            <header class="desktop-panel__bar" aria-label="ERP Application window">
-              <p class="desktop-panel__title section-subheading">ERP Application</p>
-            </header>
-            <div class="desktop-panel__body">
-              <img src="thumb_erp.png" alt="Preview of ERP application dashboard">
+          <article class="mobile-work-card">
+            <img src="thumb_erp.png" alt="ERP Application preview" class="mobile-work-card__thumb">
+            <div class="mobile-work-card__content">
+              <h3 class="mobile-work-card__title">ERP Application</h3>
+              <p class="mobile-work-card__text">Delivered end-to-end research, UX, and UI for a large-scale training ERP that streamlined operations.</p>
             </div>
           </article>
-
-          <article class="desktop-panel" data-panel="telemedicine" style="--panel-top: 55%; --panel-left: 22%;" tabindex="0" role="button" aria-label="Open Telemedicine Platform project">
-            <header class="desktop-panel__bar" aria-label="Telemedicine Platform window">
-              <p class="desktop-panel__title section-subheading">Telemedicine Platform</p>
-            </header>
-            <div class="desktop-panel__body">
-              <img src="thumb_medicare.png" alt="Preview of telemedicine platform UI">
+          <article class="mobile-work-card">
+            <img src="thumb_medicare.png" alt="Telemedicine Platform preview" class="mobile-work-card__thumb">
+            <div class="mobile-work-card__content">
+              <h3 class="mobile-work-card__title">Telemedicine Platform</h3>
+              <p class="mobile-work-card__text">Built a multi-device telemedicine experience with intuitive patient and clinician workflows.</p>
             </div>
           </article>
         </div>
       </div>
-    </div>
+    </section>
   </section>
 
   <div class="project-modal" aria-hidden="true">
