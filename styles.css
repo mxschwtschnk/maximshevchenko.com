@@ -1117,7 +1117,7 @@ a:hover {
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-kicker);
-  margin: 0 0 var(--spacing-8);
+  margin: 0 0 var(--spacing-1);
   color: #ddeddd;
   text-align: center;
 }
