@@ -715,6 +715,10 @@ a:hover {
   color: #fff;
 }
 
+.about-preview p:nth-of-type(2) {
+  color: rgba(255, 255, 255, 0.8);
+}
+
 /* Work Cards */
 .work-grid {
   display: grid;
