@@ -300,11 +300,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const paragraphSpacing = sampleParagraph ? parseFloat(getComputedStyle(sampleParagraph).marginTop) || 0 : 0;
     const spacingTotal = paragraphSpacing * Math.max(0, (projectModalDescription?.childElementCount || 1) - 1);
     const defaultLines = 6;
-    const availableHeight = measuredHeight ? Math.max(80, Math.round(measuredHeight - paddingTop - paddingBottom)) : undefined;
-    const maxTextHeight = availableHeight ? Math.max(48, availableHeight - toggleHeight) : undefined;
-    const visibleLines = Math.max(2, Math.floor((maxTextHeight || (lineHeight * defaultLines)) / lineHeight));
+    const defaultThumbHeight = 240;
+    const availableHeight = measuredHeight ? Math.max(80, Math.round(measuredHeight - paddingTop - paddingBottom)) : Math.max(defaultThumbHeight - paddingTop - paddingBottom, 80);
+    const maxTextHeight = Math.max(48, availableHeight - toggleHeight);
+    const visibleLines = Math.max(2, Math.floor(maxTextHeight / lineHeight) || defaultLines);
     const clampedTextHeight = Math.round((visibleLines * lineHeight) + spacingTotal);
-    const fullTextHeight = projectModalDescription?.scrollHeight || clampedTextHeight;
+    const fullTextHeight = Math.max(projectModalDescription?.scrollHeight || clampedTextHeight, clampedTextHeight);
     const closedHeight = Math.round(clampedTextHeight + toggleHeight + paddingTop + paddingBottom);
     const openHeight = Math.round(fullTextHeight + toggleHeight + paddingTop + paddingBottom);
 
@@ -352,7 +353,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const projectDetails = {
     mobility: {
       title: 'Mobility Platform',
-      image: 'Thumb_switch.png',
+      thumb: 'thumb_switch.png',
+      image: 'switch1.png',
       gallery: ['switch1.png'],
       description: [
         'As a Senior Product Designer I lead the public transport area of the hvv switch app—Hamburg’s mobility platform that blends public transport with shared mobility.',
@@ -363,7 +365,8 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     erp: {
       title: 'ERP Application',
-      image: 'Thumb_erp.png',
+      thumb: 'thumb_erp.png',
+      image: 'erp1.png',
       gallery: ['erp1.png', 'erp2.png', 'erp3.png'],
       description: [
         'I led the end-to-end process from research and service blueprints to MVP prototypes, usability testing, and final UI delivery.',
@@ -374,7 +377,8 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     telemedicine: {
       title: 'Telemedicine Platform',
-      image: 'Thumb_medicare.png',
+      thumb: 'thumb_medicare.png',
+      image: 'medicare1.png',
       gallery: ['medicare1.png'],
       description: [
         'I guided the project from research and journey mapping to prototyping, testing, and development sprints, focusing on accessibility for elderly users.',
@@ -393,11 +397,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const panelTitle = panel.querySelector('.desktop-panel__title');
     const details = projectDetails[panelKey] || {};
 
+    const thumbSource = details.thumb || previewImg?.dataset.thumbnail || previewImg?.getAttribute('src') || '';
     const imageSource = details.image || previewImg?.dataset.fullsize || previewImg?.getAttribute('src') || '';
     const galleryItems = (details.gallery && details.gallery.length ? details.gallery : [imageSource]).filter(Boolean);
     const [primaryImage] = galleryItems.length ? galleryItems : [imageSource];
 
-    projectModalThumb.src = primaryImage;
+    projectModalThumb.src = thumbSource || primaryImage;
     projectModalThumb.alt = `${details.title || panelTitle?.textContent || 'Project'} preview`;
     projectModalTitle.textContent = details.title || panelTitle?.textContent || 'Project';
     projectModalDescription.innerHTML = '';
@@ -490,6 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
       projectModalAccordionToggle.textContent = isOpen ? 'Show less' : 'Read more';
       projectModalAccordionToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       projectModalAccordion.setAttribute('data-open', isOpen ? 'true' : 'false');
+      syncAccordionHeight();
     });
 
     window.addEventListener('keydown', (event) => {
