@@ -232,25 +232,32 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   const projectModalClose = projectModal?.querySelector('.project-modal__close');
   const syncAccordionHeight = () => {
-    if (!projectModalThumb || !projectModalAccordion) return;
+    if (!projectModalAccordion) return;
 
-    const measuredHeight = projectModalThumb.getBoundingClientRect().height;
-    if (measuredHeight) {
-      const accordionStyles = getComputedStyle(projectModalAccordion);
-      const paddingTop = parseFloat(accordionStyles.paddingTop) || 0;
-      const paddingBottom = parseFloat(accordionStyles.paddingBottom) || 0;
-      const toggleHeight = projectModalAccordionToggle?.getBoundingClientRect().height || 0;
-      const descriptionStyles = getComputedStyle(projectModalDescription || projectModalAccordion);
-      const lineHeight = parseFloat(descriptionStyles.lineHeight) || 24;
-      const availableHeight = Math.max(80, Math.round(measuredHeight - paddingTop - paddingBottom));
-      const maxTextHeight = Math.max(48, availableHeight - toggleHeight);
-      const visibleLines = Math.max(2, Math.floor(maxTextHeight / lineHeight));
-      const clampedHeight = Math.round((visibleLines * lineHeight) + toggleHeight);
+    const measuredHeight = projectModalThumb?.getBoundingClientRect().height;
+    const accordionStyles = getComputedStyle(projectModalAccordion);
+    const paddingTop = parseFloat(accordionStyles.paddingTop) || 0;
+    const paddingBottom = parseFloat(accordionStyles.paddingBottom) || 0;
+    const toggleHeight = projectModalAccordionToggle?.getBoundingClientRect().height || 0;
+    const descriptionStyles = getComputedStyle(projectModalDescription || projectModalAccordion);
+    const lineHeight = parseFloat(descriptionStyles.lineHeight) || 24;
+    const sampleParagraph = projectModalDescription?.querySelector('p + p');
+    const paragraphSpacing = sampleParagraph ? parseFloat(getComputedStyle(sampleParagraph).marginTop) || 0 : 0;
+    const spacingTotal = paragraphSpacing * Math.max(0, (projectModalDescription?.childElementCount || 1) - 1);
+    const defaultLines = 6;
+    const availableHeight = measuredHeight ? Math.max(80, Math.round(measuredHeight - paddingTop - paddingBottom)) : undefined;
+    const maxTextHeight = availableHeight ? Math.max(48, availableHeight - toggleHeight) : undefined;
+    const visibleLines = Math.max(2, Math.floor((maxTextHeight || (lineHeight * defaultLines)) / lineHeight));
+    const clampedTextHeight = Math.round((visibleLines * lineHeight) + spacingTotal);
+    const fullTextHeight = projectModalDescription?.scrollHeight || clampedTextHeight;
+    const closedHeight = Math.round(clampedTextHeight + toggleHeight + paddingTop + paddingBottom);
+    const openHeight = Math.round(fullTextHeight + toggleHeight + paddingTop + paddingBottom);
 
-      projectModalAccordion.style.setProperty('--project-accordion-closed-max', `${Math.round(measuredHeight)}px`);
-      projectModalAccordion.style.setProperty('--project-accordion-height', `${clampedHeight}px`);
-      projectModalAccordion.style.setProperty('--project-accordion-lines', `${visibleLines}`);
-    }
+    projectModalAccordion.style.setProperty('--project-accordion-closed-max', `${closedHeight}px`);
+    projectModalAccordion.style.setProperty('--project-accordion-open-max', `${openHeight}px`);
+    projectModalAccordion.style.setProperty('--project-accordion-description-max', `${clampedTextHeight}px`);
+    projectModalAccordion.style.setProperty('--project-accordion-description-open-max', `${fullTextHeight}px`);
+    projectModalAccordion.style.setProperty('--project-accordion-lines', `${visibleLines}`);
   };
   const updateCloseButtonGlow = (event) => {
     if (!projectModalClose) return;
@@ -398,6 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     projectModalAccordionToggle?.addEventListener('click', (event) => {
       event.preventDefault();
+      syncAccordionHeight();
       const isOpen = projectModalAccordion?.classList.toggle('is-open');
       if (!projectModalAccordionToggle || !projectModalAccordion) return;
       projectModalAccordionToggle.textContent = isOpen ? 'Show less' : 'Read more';

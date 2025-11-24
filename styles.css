@@ -1105,8 +1105,10 @@ a:hover {
 }
 
 .project-modal__accordion {
-  --project-accordion-height: var(--project-thumb-height);
   --project-accordion-closed-max: var(--project-thumb-height);
+  --project-accordion-open-max: var(--project-thumb-height);
+  --project-accordion-description-max: var(--project-thumb-height);
+  --project-accordion-description-open-max: var(--project-thumb-height);
   --project-accordion-lines: 6;
   flex: 1 1 320px;
   background: none;
@@ -1124,15 +1126,14 @@ a:hover {
 }
 
 .project-modal__accordion.is-open {
-  max-height: none;
-  overflow: visible;
+  max-height: var(--project-accordion-open-max);
 }
 
 .project-modal__description {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: var(--project-accordion-lines);
-  max-height: var(--project-accordion-height);
+  max-height: var(--project-accordion-description-max);
   overflow: hidden;
   position: relative;
   transition: max-height 0.35s ease;
@@ -1143,7 +1144,7 @@ a:hover {
 }
 
 .project-modal__accordion.is-open .project-modal__description {
-  max-height: none;
+  max-height: var(--project-accordion-description-open-max);
   overflow: visible;
   -webkit-line-clamp: unset;
   display: block;
@@ -1175,7 +1176,9 @@ a:hover {
   text-decoration: underline;
   padding: 0;
   vertical-align: baseline;
-  justify-self: start;
+  justify-self: end;
+  align-self: end;
+  text-align: right;
 }
 
 .project-modal__accordion-toggle:hover,
