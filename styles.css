@@ -823,9 +823,10 @@ a:hover {
   position: relative;
   z-index: 2;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   padding: 0 clamp(0.4rem, 1vw, 0.8rem) clamp(0.9rem, 1.8vw, 1.2rem);
+  text-align: center;
 }
 
 .desktop-shell__title {
@@ -911,6 +912,12 @@ a:hover {
   border-radius: 0.8rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.desktop-panel:hover .desktop-panel__body img {
+  transform: scale(1.06);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 @keyframes panel-drift {
@@ -953,6 +960,165 @@ a:hover {
     top: auto;
     left: auto;
     width: 100%;
+  }
+}
+
+/* Project modal */
+.project-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 2rem);
+  background: color-mix(in hsl, rgba(6, 7, 9, 0.88) 85%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 2000;
+}
+
+.project-modal.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.project-modal__content {
+  position: relative;
+  width: min(1000px, 100%);
+  max-height: min(90vh, 920px);
+  background: linear-gradient(160deg, rgba(16, 18, 20, 0.9), rgba(12, 13, 15, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.2rem;
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.project-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 140% at 18% 24%, rgba(70, 132, 104, 0.28), transparent 55%),
+              radial-gradient(120% 140% at 78% 18%, rgba(255, 255, 255, 0.18), transparent 60%);
+  opacity: 0.75;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.project-modal__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(1.4rem, 2vw, 1.8rem);
+  padding: clamp(1.2rem, 3vw, 2rem);
+  align-items: center;
+}
+
+.project-modal__media {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #0c0d0f;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.project-modal__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: inherit;
+}
+
+.project-modal__info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  z-index: 1;
+}
+
+.project-modal__category {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--lines);
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-kicker);
+  color: #dce2d8;
+  width: fit-content;
+}
+
+.project-modal__title {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin: 0;
+}
+
+.project-modal__summary {
+  color: #d9dde4;
+  line-height: var(--line-height-snug);
+}
+
+.project-modal__meta {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  padding: 0;
+  margin: 0;
+}
+
+.project-modal__pill {
+  padding: 0.45rem 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: var(--font-size-small);
+  color: var(--muted);
+}
+
+.project-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--fg);
+  font-size: 1.2rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  z-index: 3;
+}
+
+.project-modal__close:hover,
+.project-modal__close:focus-visible {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+@media (max-width: 880px) {
+  .project-modal__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-modal {
+    padding: 0.75rem;
+  }
+
+  .project-modal__content {
+    max-height: 92vh;
   }
 }
 

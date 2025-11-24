@@ -63,7 +63,7 @@
       </header>
 
       <div class="desktop-stage" aria-live="polite">
-        <article class="desktop-panel" data-panel="mobility" style="--panel-top: 14%; --panel-left: 12%;">
+        <article class="desktop-panel" data-panel="mobility" style="--panel-top: 14%; --panel-left: 12%;" tabindex="0" role="button" aria-label="Open Mobility Platform project">
           <header class="desktop-panel__bar" aria-label="Mobility Platform window">
             <p class="desktop-panel__title">Mobility Platform</p>
           </header>
@@ -72,7 +72,7 @@
           </div>
         </article>
 
-        <article class="desktop-panel" data-panel="erp" style="--panel-top: 32%; --panel-left: 46%;">
+        <article class="desktop-panel" data-panel="erp" style="--panel-top: 32%; --panel-left: 46%;" tabindex="0" role="button" aria-label="Open ERP Application project">
           <header class="desktop-panel__bar" aria-label="ERP Application window">
             <p class="desktop-panel__title">ERP Application</p>
           </header>
@@ -81,7 +81,7 @@
           </div>
         </article>
 
-        <article class="desktop-panel" data-panel="telemedicine" style="--panel-top: 55%; --panel-left: 22%;">
+        <article class="desktop-panel" data-panel="telemedicine" style="--panel-top: 55%; --panel-left: 22%;" tabindex="0" role="button" aria-label="Open Telemedicine Platform project">
           <header class="desktop-panel__bar" aria-label="Telemedicine Platform window">
             <p class="desktop-panel__title">Telemedicine Platform</p>
           </header>
@@ -92,6 +92,24 @@
       </div>
     </div>
   </section>
+
+  <div class="project-modal" aria-hidden="true">
+    <div class="project-modal__content" role="dialog" aria-modal="true" aria-label="Project details">
+      <div class="project-modal__backdrop"></div>
+      <button class="project-modal__close" type="button" aria-label="Close project details">×</button>
+      <div class="project-modal__grid">
+        <div class="project-modal__media">
+          <img src="" alt="Project preview" loading="lazy">
+        </div>
+        <div class="project-modal__info">
+          <p class="project-modal__category"></p>
+          <h3 class="project-modal__title"></h3>
+          <p class="project-modal__summary"></p>
+          <ul class="project-modal__meta"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- CTA Section -->
   <section class="section cta-section">
