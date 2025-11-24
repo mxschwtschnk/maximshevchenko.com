@@ -118,8 +118,66 @@ document.addEventListener('DOMContentLoaded', function() {
       mouseX = 0;
       mouseY = 0;
     });
-    
+
     animate();
+  }
+
+  // Desktop panel dragging
+  const desktopStage = document.querySelector('.desktop-stage');
+  const desktopPanels = document.querySelectorAll('.desktop-panel');
+
+  if (desktopStage && desktopPanels.length) {
+    let highestZ = 30;
+
+    desktopPanels.forEach(panel => {
+      const bar = panel.querySelector('.desktop-panel__bar');
+      if (!bar) return;
+
+      panel.style.zIndex = (++highestZ).toString();
+
+      const pointerDownHandler = (event) => {
+        if (event.button !== 0 && event.pointerType === 'mouse') return;
+        if (!bar.contains(event.target)) return;
+
+        const panelRect = panel.getBoundingClientRect();
+        const offsetX = event.clientX - panelRect.left;
+        const offsetY = event.clientY - panelRect.top;
+
+        panel.classList.add('is-dragging');
+        panel.style.zIndex = (++highestZ).toString();
+
+        const handlePointerMove = (moveEvent) => {
+          const stageBounds = desktopStage.getBoundingClientRect();
+          const currentPanelRect = panel.getBoundingClientRect();
+          const maxLeft = stageBounds.width - currentPanelRect.width - 12;
+          const maxTop = stageBounds.height - currentPanelRect.height - 12;
+
+          let nextLeft = moveEvent.clientX - stageBounds.left - offsetX;
+          let nextTop = moveEvent.clientY - stageBounds.top - offsetY;
+
+          nextLeft = Math.max(12, Math.min(nextLeft, maxLeft));
+          nextTop = Math.max(12, Math.min(nextTop, maxTop));
+
+          panel.style.left = `${nextLeft}px`;
+          panel.style.top = `${nextTop}px`;
+        };
+
+        const handlePointerUp = () => {
+          panel.classList.remove('is-dragging');
+          window.removeEventListener('pointermove', handlePointerMove);
+          window.removeEventListener('pointerup', handlePointerUp);
+        };
+
+        window.addEventListener('pointermove', handlePointerMove);
+        window.addEventListener('pointerup', handlePointerUp);
+
+        if (panel.setPointerCapture) {
+          panel.setPointerCapture(event.pointerId);
+        }
+      };
+
+      panel.addEventListener('pointerdown', pointerDownHandler);
+    });
   }
 });
 
