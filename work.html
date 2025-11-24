@@ -95,22 +95,28 @@
 
   <div class="project-modal" aria-hidden="true">
     <div class="project-modal__content" role="dialog" aria-modal="true" aria-label="Project details">
-        <div class="project-modal__backdrop"></div>
-        <button class="project-modal__close" type="button" aria-label="Close project details">×</button>
-        <div class="project-modal__grid">
-          <div class="project-modal__media">
-            <img src="" alt="Project preview" loading="lazy">
-            <div class="project-modal__thumbnails" aria-label="Project gallery"></div>
-          </div>
-          <div class="project-modal__info">
-            <h3 class="project-modal__title"></h3>
-            <p class="project-modal__summary"></p>
-            <div class="project-modal__description" aria-label="Project description"></div>
-            <ul class="project-modal__meta"></ul>
-          </div>
+      <div class="project-modal__backdrop"></div>
+      <button class="project-modal__close" type="button" aria-label="Close project details">×</button>
+
+      <div class="project-modal__header">
+        <h3 class="project-modal__title"></h3>
+        <ul class="project-modal__meta"></ul>
+      </div>
+
+      <div class="project-modal__summary-row">
+        <figure class="project-modal__thumb-card">
+          <img class="project-modal__thumb" src="" alt="Project preview" loading="lazy">
+        </figure>
+
+        <div class="project-modal__accordion" data-open="false">
+          <div class="project-modal__description" aria-label="Project description"></div>
+          <button class="project-modal__accordion-toggle" type="button" aria-expanded="false">Read more</button>
         </div>
       </div>
+
+      <div class="project-modal__gallery" aria-label="Project gallery"></div>
     </div>
+  </div>
 
   <!-- CTA Section -->
   <section class="section cta-section">

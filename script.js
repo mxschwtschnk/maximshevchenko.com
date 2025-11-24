@@ -186,18 +186,18 @@ document.addEventListener('DOMContentLoaded', function() {
   // Project modal interactions
   const projectModal = document.querySelector('.project-modal');
   const projectModalContent = projectModal?.querySelector('.project-modal__content');
-  const projectModalImage = projectModal?.querySelector('.project-modal__media img');
-  const projectModalThumbnails = projectModal?.querySelector('.project-modal__thumbnails');
+  const projectModalThumb = projectModal?.querySelector('.project-modal__thumb');
   const projectModalTitle = projectModal?.querySelector('.project-modal__title');
-  const projectModalSummary = projectModal?.querySelector('.project-modal__summary');
   const projectModalDescription = projectModal?.querySelector('.project-modal__description');
   const projectModalMeta = projectModal?.querySelector('.project-modal__meta');
+  const projectModalGallery = projectModal?.querySelector('.project-modal__gallery');
+  const projectModalAccordion = projectModal?.querySelector('.project-modal__accordion');
+  const projectModalAccordionToggle = projectModal?.querySelector('.project-modal__accordion-toggle');
   const projectModalClose = projectModal?.querySelector('.project-modal__close');
 
   const projectDetails = {
     mobility: {
       title: 'Mobility Platform',
-      summary: 'Public transport experience for Hamburg’s hvv switch platform, balancing accessibility, compliance, and usability.',
       image: 'Thumb_switch.png',
       gallery: ['Thumb_switch.png'],
       description: [
@@ -209,7 +209,6 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     erp: {
       title: 'ERP Application',
-      summary: 'Enterprise ERP system for WBS Training AG supporting 6,000+ courses, 2,000 employees, and government partnerships.',
       image: 'Thumb_erp.png',
       gallery: ['Thumb_erp.png'],
       description: [
@@ -221,7 +220,6 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     telemedicine: {
       title: 'Telemedicine Platform',
-      summary: 'Telemedicine platform tailored for seniors with simplified navigation, trust-building visuals, and compliance with medical standards.',
       image: 'Thumb_medicare.png',
       gallery: ['Thumb_medicare.png'],
       description: [
@@ -234,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   const openProjectModal = (panel) => {
-    if (!projectModal || !projectModalContent || !projectModalImage || !projectModalThumbnails || !projectModalTitle || !projectModalSummary || !projectModalMeta || !projectModalDescription) return;
+    if (!projectModal || !projectModalContent || !projectModalThumb || !projectModalTitle || !projectModalMeta || !projectModalDescription || !projectModalGallery) return;
 
     const panelKey = panel.dataset.panel;
     const previewImg = panel.querySelector('img');
@@ -242,15 +240,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const details = projectDetails[panelKey] || {};
 
     const imageSource = details.image || previewImg?.dataset.fullsize || previewImg?.getAttribute('src') || '';
-    const summaryCopy = details.summary || previewImg?.getAttribute('alt') || 'Multi-screen product experience.';
     const galleryItems = (details.gallery && details.gallery.length ? details.gallery : [imageSource]).filter(Boolean);
-    const primaryImage = galleryItems[0] || imageSource;
+    const [primaryImage] = galleryItems.length ? galleryItems : [imageSource];
 
-    projectModalImage.src = primaryImage;
-    projectModalImage.alt = `${details.title || panelTitle?.textContent || 'Project'} preview`;
+    projectModalThumb.src = primaryImage;
+    projectModalThumb.alt = `${details.title || panelTitle?.textContent || 'Project'} preview`;
     projectModalTitle.textContent = details.title || panelTitle?.textContent || 'Project';
-    projectModalSummary.textContent = summaryCopy;
-
     projectModalDescription.innerHTML = '';
     (details.description || []).forEach(paragraph => {
       const p = document.createElement('p');
@@ -266,48 +261,31 @@ document.addEventListener('DOMContentLoaded', function() {
       projectModalMeta.appendChild(pill);
     });
 
-    projectModalThumbnails.innerHTML = '';
+    projectModalGallery.innerHTML = '';
+    galleryItems.forEach((src, index) => {
+      const galleryImage = document.createElement('img');
+      galleryImage.src = src;
+      galleryImage.alt = `${details.title || 'Project'} image ${index + 1}`;
+      galleryImage.loading = 'lazy';
+      projectModalGallery.appendChild(galleryImage);
+    });
 
-    if (galleryItems.length) {
-      const setActiveImage = (src) => {
-        projectModalImage.src = src;
-        projectModalThumbnails
-          .querySelectorAll('.project-modal__thumbnail')
-          .forEach((thumb) => {
-            const isActive = thumb.dataset.src === src;
-            thumb.classList.toggle('is-active', isActive);
-            thumb.setAttribute('aria-pressed', isActive.toString());
-          });
-      };
-
-      galleryItems.forEach((src, index) => {
-        const thumbButton = document.createElement('button');
-        thumbButton.type = 'button';
-        thumbButton.className = 'project-modal__thumbnail';
-        thumbButton.dataset.src = src;
-        thumbButton.setAttribute('aria-label', `Show ${details.title || 'project'} image ${index + 1}`);
-
-        const thumbImage = document.createElement('img');
-        thumbImage.src = src;
-        thumbImage.alt = `${details.title || 'Project'} thumbnail ${index + 1}`;
-
-        thumbButton.appendChild(thumbImage);
-        projectModalThumbnails.appendChild(thumbButton);
-
-        thumbButton.addEventListener('click', () => setActiveImage(src));
-      });
-
-      setActiveImage(primaryImage);
+    projectModalAccordion?.classList.remove('is-open');
+    if (projectModalAccordionToggle) {
+      projectModalAccordionToggle.textContent = 'Read more';
+      projectModalAccordionToggle.setAttribute('aria-expanded', 'false');
     }
 
     projectModal.classList.add('is-active');
     projectModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
   };
 
   const closeProjectModal = () => {
     if (!projectModal) return;
     projectModal.classList.remove('is-active');
     projectModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
   };
 
   if (projectModal && desktopPanels.length) {
@@ -338,6 +316,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     projectModalClose?.addEventListener('click', closeProjectModal);
+
+    projectModalAccordionToggle?.addEventListener('click', () => {
+      const isOpen = projectModalAccordion?.classList.toggle('is-open');
+      if (!projectModalAccordionToggle) return;
+      projectModalAccordionToggle.textContent = isOpen ? 'Show less' : 'Read more';
+      projectModalAccordionToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
 
     window.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && projectModal.classList.contains('is-active')) {
