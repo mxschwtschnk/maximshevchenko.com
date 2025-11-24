@@ -1010,9 +1010,9 @@ a:hover {
   align-items: stretch;
   justify-content: center;
   padding: var(--spacing-7);
-  background: color-mix(in hsl, rgba(6, 7, 9, 0.9) 92%, transparent);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  background: color-mix(in hsl, rgba(6, 7, 9, 0.78) 75%, rgba(24, 30, 32, 0.65));
+  backdrop-filter: blur(22px) saturate(150%) brightness(102%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%) brightness(102%);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease;
@@ -1047,8 +1047,8 @@ a:hover {
   inset: 0;
   background: radial-gradient(120% 140% at 18% 24%, rgba(70, 132, 104, 0.28), transparent 55%),
               radial-gradient(120% 140% at 78% 18%, rgba(255, 255, 255, 0.18), transparent 60%);
-  opacity: 0.75;
-  filter: blur(2px);
+  opacity: 0.6;
+  filter: blur(4px) saturate(110%);
   pointer-events: none;
 }
 
@@ -1070,16 +1070,17 @@ a:hover {
   justify-content: center;
   gap: var(--spacing-2);
   padding: 0;
-  margin: 0;
+  margin: 0 0 var(--spacing-5);
 }
 
 .project-modal__pill {
-  padding: 0.45rem 0.9rem;
-  background: rgba(255, 255, 255, 0.06);
+  padding: 0.5rem 1rem;
+  background: transparent;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   font-size: var(--font-size-small);
-  color: var(--muted);
+  color: var(--fg);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .project-modal__summary-row {
@@ -1118,7 +1119,7 @@ a:hover {
   padding: clamp(0.35rem, 1vw, 0.75rem) 0;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-3);
+  gap: var(--spacing-2);
   max-height: var(--project-thumb-height);
   overflow: hidden;
   transition: max-height 0.3s ease;
@@ -1135,30 +1136,31 @@ a:hover {
 }
 
 .project-modal__description p {
-  font-size: clamp(1.02rem, 1.2vw, 1.12rem);
-  line-height: 1.75;
+  font-size: clamp(1.08rem, 1.35vw, 1.24rem);
+  line-height: 1.78;
   margin: 0;
 }
 
 .project-modal__accordion-toggle {
-  align-self: flex-start;
-  padding: 0.65rem 1.2rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(70, 132, 104, 0.18);
+  border: none;
+  background: transparent;
   color: var(--fg);
-  letter-spacing: var(--letter-spacing-kicker);
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: color 0.2s ease;
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: clamp(1rem, 1.1vw, 1.08rem);
+  text-decoration: underline;
+  padding: 0;
 }
 
 .project-modal__accordion-toggle:hover,
 .project-modal__accordion-toggle:focus-visible {
-  transform: translateY(-1px);
-  background: rgba(70, 132, 104, 0.28);
-  border-color: rgba(255, 255, 255, 0.24);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .project-modal__gallery {
@@ -1178,28 +1180,35 @@ a:hover {
 }
 
 .project-modal__close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: clamp(1.25rem, 2vw, 1.75rem);
+  right: clamp(1.25rem, 2vw, 1.75rem);
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background:
+    linear-gradient(140deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
+    radial-gradient(120% 120% at 20% 20%, rgba(70, 132, 104, 0.4), transparent 55%),
+    radial-gradient(140% 140% at 80% 10%, rgba(255, 255, 255, 0.24), transparent 60%);
   color: var(--fg);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-  z-index: 3;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 2200;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.36);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
 }
 
 .project-modal__close:hover,
 .project-modal__close:focus-visible {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px) scale(1.04);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06));
+  border-color: rgba(255, 255, 255, 0.36);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 @media (max-width: 720px) {
