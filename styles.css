@@ -111,7 +111,7 @@ body::before {
   content: '';
   position: absolute;
   top: -55vh;
-  right: -45vw;
+  left: -45vw;
   width: clamp(520px, 68vw, 880px);
   aspect-ratio: 1;
   background: radial-gradient(circle at 40% 40%, rgba(72, 118, 94, 0.6), rgba(72, 118, 94, 0.32), transparent 70%);
