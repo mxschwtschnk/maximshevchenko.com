@@ -636,6 +636,7 @@ a:hover {
   overflow: hidden;
   white-space: nowrap;
   position: relative;
+  margin-top: -0.75rem;
 }
 
 .scroll-skills {
