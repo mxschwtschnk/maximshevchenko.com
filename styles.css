@@ -112,9 +112,9 @@ body::before {
 
 body::after {
   content: '';
-  position: absolute;
-  bottom: -45vh;
-  right: -42vw;
+  position: fixed;
+  bottom: -38vh;
+  left: -32vw;
   width: clamp(540px, 72vw, 940px);
   aspect-ratio: 1;
   background: radial-gradient(circle at 38% 45%, rgba(72, 118, 94, 0.75), rgba(72, 118, 94, 0.46), transparent 68%);
@@ -653,13 +653,13 @@ a:hover {
 
 @keyframes float-orb-bottom {
   0% {
-    transform: translate3d(10vw, -6vh, 0) scale(1.05);
+    transform: translate3d(-24vw, -6vh, 0) scale(1.05);
   }
   45% {
-    transform: translate3d(18vw, 2vh, 0) scale(0.99);
+    transform: translate3d(4vw, 2vh, 0) scale(0.99);
   }
   100% {
-    transform: translate3d(26vw, -3vh, 0) scale(1.08);
+    transform: translate3d(32vw, -3vh, 0) scale(1.08);
   }
 }
 
