@@ -190,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const projectModalCategory = projectModal?.querySelector('.project-modal__category');
   const projectModalTitle = projectModal?.querySelector('.project-modal__title');
   const projectModalSummary = projectModal?.querySelector('.project-modal__summary');
+  const projectModalDescription = projectModal?.querySelector('.project-modal__description');
   const projectModalMeta = projectModal?.querySelector('.project-modal__meta');
   const projectModalClose = projectModal?.querySelector('.project-modal__close');
 
@@ -197,28 +198,43 @@ document.addEventListener('DOMContentLoaded', function() {
     mobility: {
       title: 'Mobility Platform',
       category: 'Mobility · Rider & Operator',
-      summary: 'End-to-end experience for riders and operators with live fleet tracking, seamless ticketing, and driver workflows.',
+      summary: 'Public transport experience for Hamburg’s hvv switch platform, balancing accessibility, compliance, and usability.',
       image: 'Thumb_switch.png',
-      tags: ['Product design', 'Consumer app', 'Operations dashboard']
+      description: [
+        'As a Senior Product Designer I lead the public transport area of the hvv switch app—Hamburg’s mobility platform that blends public transport with shared mobility.',
+        'The role requires close collaboration with stakeholders from a publicly owned company, aligning high volumes of regulatory requirements with accessibility standards and a clear product vision.',
+        'Critical design updates are in progress and not yet released publicly; visual material will follow once available.'
+      ],
+      tags: ['Product design', 'Consumer app', 'Accessibility', 'Compliance']
     },
     erp: {
       title: 'ERP Application',
       category: 'Enterprise · Automation',
-      summary: 'Modular ERP workspace covering finance, inventory, and planning with customizable dashboards and approvals.',
+      summary: 'Enterprise ERP system for WBS Training AG supporting 6,000+ courses, 2,000 employees, and government partnerships.',
       image: 'Thumb_erp.png',
-      tags: ['Enterprise UX', 'Design system', 'Data visualization']
+      description: [
+        'I led the end-to-end process from research and service blueprints to MVP prototypes, usability testing, and final UI delivery.',
+        'The design translated complex requirements into a core tool for staff and students, improving efficiency and reducing operational bottlenecks.',
+        'As this enterprise product is under NDA, the visuals illustrate the solution but do not match the exact final release.'
+      ],
+      tags: ['Enterprise UX', 'Design system', 'Data visualization', 'Service design']
     },
     telemedicine: {
       title: 'Telemedicine Platform',
       category: 'Healthcare · Remote care',
-      summary: 'Telehealth ecosystem connecting patients, clinicians, and pharmacy partners through secure virtual care flows.',
+      summary: 'Telemedicine platform tailored for seniors with simplified navigation, trust-building visuals, and compliance with medical standards.',
       image: 'Thumb_medicare.png',
-      tags: ['Health tech', 'Patient portal', 'Cross-platform']
+      description: [
+        'I guided the project from research and journey mapping to prototyping, testing, and development sprints, focusing on accessibility for elderly users.',
+        'Interfaces emphasize larger touch targets, intuitive navigation, and a clear visual language to lower cognitive load and build trust.',
+        'The resulting platform lets seniors connect with doctors, manage prescriptions, and access medical records with ease.'
+      ],
+      tags: ['Health tech', 'Patient portal', 'Cross-platform', 'Accessibility']
     }
   };
 
   const openProjectModal = (panel) => {
-    if (!projectModal || !projectModalContent || !projectModalImage || !projectModalCategory || !projectModalTitle || !projectModalSummary || !projectModalMeta) return;
+    if (!projectModal || !projectModalContent || !projectModalImage || !projectModalCategory || !projectModalTitle || !projectModalSummary || !projectModalMeta || !projectModalDescription) return;
 
     const panelKey = panel.dataset.panel;
     const previewImg = panel.querySelector('img');
@@ -234,6 +250,13 @@ document.addEventListener('DOMContentLoaded', function() {
     projectModalTitle.textContent = details.title || panelTitle?.textContent || 'Project';
     projectModalSummary.textContent = summaryCopy;
 
+    projectModalDescription.innerHTML = '';
+    (details.description || []).forEach(paragraph => {
+      const p = document.createElement('p');
+      p.textContent = paragraph;
+      projectModalDescription.appendChild(p);
+    });
+
     projectModalMeta.innerHTML = '';
     (details.tags || []).forEach(tag => {
       const pill = document.createElement('li');
@@ -244,21 +267,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     projectModal.classList.add('is-active');
     projectModal.setAttribute('aria-hidden', 'false');
-
-    const startRect = panel.getBoundingClientRect();
-    const finalRect = projectModalContent.getBoundingClientRect();
-    const translateX = startRect.left - finalRect.left;
-    const translateY = startRect.top - finalRect.top;
-    const scaleX = startRect.width / finalRect.width;
-    const scaleY = startRect.height / finalRect.height;
-
-    projectModalContent.animate([
-      { transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})` },
-      { transform: 'translate(0, 0) scale(1, 1)' }
-    ], {
-      duration: 450,
-      easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
-    });
   };
 
   const closeProjectModal = () => {
