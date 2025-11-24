@@ -1158,11 +1158,10 @@ a:hover {
 .project-modal__gallery img {
   width: 100%;
   display: block;
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.35);
+  border: none;
+  border-radius: 0;
   object-fit: cover;
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.46);
+  box-shadow: none;
 }
 
 .project-modal__close {
