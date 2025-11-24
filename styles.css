@@ -837,9 +837,9 @@ a:hover {
   margin: 0 0 var(--spacing-4);
 }
 
-.section-subheading::after {
+/*.section-subheading::after {
   content: ".";
-}
+}*/
 
 /* About Preview */
 .about-preview {
@@ -1734,9 +1734,9 @@ a:hover {
   color: #ddeddd;
 }
 
-.cta-heading::after {
+/*.cta-heading::after {
   content: ".";
-}
+}*/
 
 .cta-text {
   font-size: var(--font-size-body);
