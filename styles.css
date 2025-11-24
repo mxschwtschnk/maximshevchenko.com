@@ -110,6 +110,21 @@ body::before {
   animation: float-orb 16s ease-in-out infinite alternate;
 }
 
+body::after {
+  content: '';
+  position: absolute;
+  bottom: -45vh;
+  left: -42vw;
+  width: clamp(540px, 72vw, 940px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle at 38% 45%, rgba(72, 118, 94, 0.75), rgba(72, 118, 94, 0.46), transparent 68%);
+  filter: blur(118px);
+  opacity: 0.9;
+  z-index: 0;
+  pointer-events: none;
+  animation: float-orb-bottom 18s ease-in-out infinite alternate;
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
@@ -632,6 +647,18 @@ a:hover {
   }
   100% {
     transform: translate3d(6vw, 4vh, 0) scale(1.04);
+  }
+}
+
+@keyframes float-orb-bottom {
+  0% {
+    transform: translate3d(8vw, -4vh, 0) scale(1.05);
+  }
+  45% {
+    transform: translate3d(2vw, 2vh, 0) scale(0.98);
+  }
+  100% {
+    transform: translate3d(-10vw, -2vh, 0) scale(1.08);
   }
 }
 
