@@ -173,8 +173,7 @@ a:hover {
   gap: var(--spacing-3);
   padding: 0 var(--spacing-4);
   z-index: 1000;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow: visible;
 }
 
 .nav {
