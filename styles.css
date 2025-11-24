@@ -113,7 +113,7 @@ body::before {
 body::after {
   content: '';
   position: fixed;
-  bottom: -38vh;
+  bottom: -60vh;
   left: -32vw;
   width: clamp(540px, 72vw, 940px);
   aspect-ratio: 1;
