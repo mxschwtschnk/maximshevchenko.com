@@ -1495,6 +1495,37 @@ a:hover {
   border-color: rgba(255, 255, 255, 0.18);
 }
 
+.cta-links .btn {
+  overflow: hidden;
+}
+
+.cta-links .btn::after {
+  content: '';
+  position: absolute;
+  inset: -45%;
+  background: radial-gradient(140% 140% at var(--glow-x, 50%) var(--glow-y, 50%), rgba(70, 132, 104, 0.6), transparent 60%);
+  opacity: 0.12;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.cta-links .btn:hover,
+.cta-links .btn:focus-visible {
+  transform: translateY(-2px) scale(1.06);
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.05)),
+    radial-gradient(120% 120% at 20% 20%, rgba(70, 132, 104, 0.34), transparent 55%),
+    radial-gradient(140% 140% at 80% 10%, rgba(255, 255, 255, 0.22), transparent 60%);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.cta-links .btn:hover::after,
+.cta-links .btn:focus-visible::after {
+  opacity: 0.4;
+}
+
 .btn-arrow {
   display: inline-block;
   width: 0.5rem;

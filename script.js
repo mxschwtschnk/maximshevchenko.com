@@ -111,7 +111,18 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-  
+
+  // CTA button glow tracking
+  const ctaButtons = document.querySelectorAll('.cta-links .btn');
+
+  ctaButtons.forEach(button => {
+    button.addEventListener('pointermove', updateCtaButtonGlow);
+    button.addEventListener('pointerleave', () => {
+      button.style.removeProperty('--glow-x');
+      button.style.removeProperty('--glow-y');
+    });
+  });
+
   // Hero image tilt effect on cursor movement
   const heroImage = document.querySelector('.hero-image');
   const heroSection = document.querySelector('.hero');
@@ -268,6 +279,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     projectModalClose.style.setProperty('--glow-x', `${x}%`);
     projectModalClose.style.setProperty('--glow-y', `${y}%`);
+  };
+
+  const updateCtaButtonGlow = (event) => {
+    const target = event.currentTarget;
+    if (!(target instanceof HTMLElement)) return;
+
+    const rect = target.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+    target.style.setProperty('--glow-x', `${x}%`);
+    target.style.setProperty('--glow-y', `${y}%`);
   };
 
   const projectDetails = {
