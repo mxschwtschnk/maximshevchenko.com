@@ -826,7 +826,7 @@ a:hover {
 
 /* Work Desktop */
 .work-desktop-section {
-  padding: clamp(0.8rem, 2vw, 1.4rem);
+  padding: clamp(2rem, 6vw, 3.5rem) 0;
   position: relative;
   isolation: isolate;
 }
@@ -834,9 +834,10 @@ a:hover {
 .desktop-shell {
   position: relative;
   min-height: calc(100vh - var(--nav-height) - clamp(2.4rem, 5vw, 4rem));
-  width: min(1320px, calc(100% - clamp(1.2rem, 3vw, 2.4rem)));
+  width: 100%;
+  max-width: var(--maxw);
   margin: 0 auto;
-  padding: 0;
+  padding: 0 var(--spacing-4);
   border: none;
   background: transparent;
   box-shadow: none;
@@ -853,9 +854,7 @@ a:hover {
 }
 
 .desktop-shell__title {
-  font-size: clamp(1.8rem, 3.4vw, 2.4rem);
   margin: 0;
-  letter-spacing: 0.12em;
 }
 
 .desktop-stage {
@@ -919,9 +918,10 @@ a:hover {
 
 .desktop-panel__title {
   margin: 0;
-  font-size: var(--font-size-small);
-  letter-spacing: 0.06em;
+  font-size: var(--font-size-h3);
+  letter-spacing: var(--letter-spacing-kicker);
   text-transform: uppercase;
+  color: #ddeddd;
 }
 
 .desktop-panel__body {

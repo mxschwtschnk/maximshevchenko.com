@@ -172,46 +172,69 @@
   </section>
 
   <!-- Work Section -->
-  <section class="section">
+  <section class="work-desktop-section" aria-label="Work projects desktop">
     <div class="container">
-      <h2 class="section-heading">work.</h2>
-      <div class="work-grid">
-        <div class="work-card">
-          <div class="work-card-image">
-            <span>Mobility Platform</span>
-          </div>
-          <div class="work-card-content">
-            <span class="work-card-category">Mobile App</span>
-            <h3 class="work-card-title">Mobility Platform</h3>
-          </div>
+      <div class="desktop-shell">
+        <header class="desktop-shell__header">
+          <h2 class="section-heading desktop-shell__title">work</h2>
+        </header>
+
+        <div class="desktop-stage" aria-live="polite">
+          <article class="desktop-panel" data-panel="mobility" style="--panel-top: 14%; --panel-left: 12%;" tabindex="0" role="button" aria-label="Open Mobility Platform project">
+            <header class="desktop-panel__bar" aria-label="Mobility Platform window">
+              <p class="desktop-panel__title section-subheading">Mobility Platform</p>
+            </header>
+            <div class="desktop-panel__body">
+              <img src="Thumb_switch.png" alt="Preview of Mobility Platform interface">
+            </div>
+          </article>
+
+          <article class="desktop-panel" data-panel="erp" style="--panel-top: 32%; --panel-left: 46%;" tabindex="0" role="button" aria-label="Open ERP Application project">
+            <header class="desktop-panel__bar" aria-label="ERP Application window">
+              <p class="desktop-panel__title section-subheading">ERP Application</p>
+            </header>
+            <div class="desktop-panel__body">
+              <img src="Thumb_erp.png" alt="Preview of ERP application dashboard">
+            </div>
+          </article>
+
+          <article class="desktop-panel" data-panel="telemedicine" style="--panel-top: 55%; --panel-left: 22%;" tabindex="0" role="button" aria-label="Open Telemedicine Platform project">
+            <header class="desktop-panel__bar" aria-label="Telemedicine Platform window">
+              <p class="desktop-panel__title section-subheading">Telemedicine Platform</p>
+            </header>
+            <div class="desktop-panel__body">
+              <img src="Thumb_medicare.png" alt="Preview of telemedicine platform UI">
+            </div>
+          </article>
         </div>
-        <div class="work-card">
-          <div class="work-card-image">
-            <span>ERP Application</span>
-          </div>
-          <div class="work-card-content">
-            <span class="work-card-category">Enterprise</span>
-            <h3 class="work-card-title">ERP application</h3>
-          </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-image">
-            <span>Telemedicine Platform</span>
-          </div>
-          <div class="work-card-content">
-            <span class="work-card-category">Application</span>
-            <h3 class="work-card-title">Telemedicine Platform</h3>
-          </div>
-        </div>
-      </div>
-      <div class="text-center">
-        <a href="work.html" class="btn">
-          MORE WORK
-          <span class="btn-arrow"></span>
-        </a>
       </div>
     </div>
   </section>
+
+  <div class="project-modal" aria-hidden="true">
+    <div class="project-modal__content" role="dialog" aria-modal="true" aria-label="Project details">
+      <div class="project-modal__backdrop"></div>
+      <button class="project-modal__close" type="button" aria-label="Close project details">×</button>
+
+      <div class="project-modal__header">
+        <h3 class="project-modal__title"></h3>
+        <ul class="project-modal__meta"></ul>
+      </div>
+
+      <div class="project-modal__summary-row">
+        <figure class="project-modal__thumb-card">
+          <img class="project-modal__thumb" src="" alt="Project preview" loading="lazy">
+        </figure>
+
+        <div class="project-modal__accordion" data-open="false">
+          <div class="project-modal__description" aria-label="Project description"></div>
+          <a class="project-modal__accordion-toggle" href="#" aria-expanded="false">Read more</a>
+        </div>
+      </div>
+
+      <div class="project-modal__gallery" aria-label="Project gallery"></div>
+    </div>
+  </div>
 
   <!-- CTA Section -->
   <section class="section cta-section">
