@@ -120,9 +120,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const scrollToTarget = (hash) => {
     const target = document.querySelector(hash);
     if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+      const targetRect = target.getBoundingClientRect();
+      const offset = window.innerHeight * 0.05;
+      const targetPosition = targetRect.top + window.scrollY - offset;
+
+      window.scrollTo({
+        top: Math.max(targetPosition, 0),
+        behavior: 'smooth'
       });
     }
   };
