@@ -247,10 +247,12 @@ document.addEventListener('DOMContentLoaded', function() {
     projectModalThumb.alt = `${details.title || panelTitle?.textContent || 'Project'} preview`;
     projectModalTitle.textContent = details.title || panelTitle?.textContent || 'Project';
     projectModalDescription.innerHTML = '';
+    let lastParagraph = null;
     (details.description || []).forEach(paragraph => {
       const p = document.createElement('p');
       p.textContent = paragraph;
       projectModalDescription.appendChild(p);
+      lastParagraph = p;
     });
 
     projectModalMeta.innerHTML = '';
@@ -274,6 +276,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (projectModalAccordionToggle) {
       projectModalAccordionToggle.textContent = 'Read more';
       projectModalAccordionToggle.setAttribute('aria-expanded', 'false');
+
+      if (lastParagraph) {
+        lastParagraph.appendChild(document.createTextNode(' '));
+        lastParagraph.appendChild(projectModalAccordionToggle);
+      } else {
+        projectModalDescription.appendChild(projectModalAccordionToggle);
+      }
     }
 
     projectModal.classList.add('is-active');
@@ -317,7 +326,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     projectModalClose?.addEventListener('click', closeProjectModal);
 
-    projectModalAccordionToggle?.addEventListener('click', () => {
+    projectModalAccordionToggle?.addEventListener('click', (event) => {
+      event.preventDefault();
       const isOpen = projectModalAccordion?.classList.toggle('is-open');
       if (!projectModalAccordionToggle) return;
       projectModalAccordionToggle.textContent = isOpen ? 'Show less' : 'Read more';
