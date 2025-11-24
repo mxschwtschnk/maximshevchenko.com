@@ -1058,6 +1058,9 @@ a:hover {
   background: #0c0d0f;
   overflow: hidden;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  padding: clamp(0.85rem, 1.8vw, 1.25rem);
+  max-width: min(720px, 92vw);
+  margin-inline: auto;
 }
 
 .project-modal__media img {
@@ -1066,6 +1069,8 @@ a:hover {
   display: block;
   border-radius: inherit;
   transition: transform 0.6s ease;
+  max-height: 520px;
+  object-fit: contain;
 }
 
 .project-modal.is-active .project-modal__media img {
@@ -1087,20 +1092,6 @@ a:hover {
   line-height: var(--line-height-snug);
 }
 
-.project-modal__category {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  padding: 0.35rem 0.8rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--lines);
-  font-size: var(--font-size-small);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-kicker);
-  color: #dce2d8;
-  width: fit-content;
-}
-
 .project-modal__title {
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   margin: 0;
@@ -1108,7 +1099,8 @@ a:hover {
 
 .project-modal__summary {
   color: #d9dde4;
-  line-height: var(--line-height-snug);
+  line-height: 1.75;
+  font-size: clamp(1.05rem, 1.25vw, 1.2rem);
 }
 
 .project-modal__meta {
@@ -1127,6 +1119,51 @@ a:hover {
   border: 1px solid rgba(255, 255, 255, 0.12);
   font-size: var(--font-size-small);
   color: var(--muted);
+}
+
+.project-modal__description p {
+  font-size: clamp(1.05rem, 1.2vw, 1.15rem);
+  line-height: 1.75;
+  margin: 0;
+}
+
+.project-modal__description p + p {
+  margin-top: var(--spacing-2);
+}
+
+.project-modal__thumbnails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-3);
+}
+
+.project-modal__thumbnail {
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.project-modal__thumbnail img {
+  width: 100%;
+  display: block;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-modal__thumbnail.is-active {
+  border-color: rgba(70, 132, 104, 0.65);
+  box-shadow: 0 0 0 1px rgba(70, 132, 104, 0.35);
+}
+
+.project-modal__thumbnail:focus-visible,
+.project-modal__thumbnail:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.32);
 }
 
 .project-modal__close {

@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const projectModal = document.querySelector('.project-modal');
   const projectModalContent = projectModal?.querySelector('.project-modal__content');
   const projectModalImage = projectModal?.querySelector('.project-modal__media img');
-  const projectModalCategory = projectModal?.querySelector('.project-modal__category');
+  const projectModalThumbnails = projectModal?.querySelector('.project-modal__thumbnails');
   const projectModalTitle = projectModal?.querySelector('.project-modal__title');
   const projectModalSummary = projectModal?.querySelector('.project-modal__summary');
   const projectModalDescription = projectModal?.querySelector('.project-modal__description');
@@ -197,9 +197,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const projectDetails = {
     mobility: {
       title: 'Mobility Platform',
-      category: 'Mobility · Rider & Operator',
       summary: 'Public transport experience for Hamburg’s hvv switch platform, balancing accessibility, compliance, and usability.',
       image: 'Thumb_switch.png',
+      gallery: ['Thumb_switch.png'],
       description: [
         'As a Senior Product Designer I lead the public transport area of the hvv switch app—Hamburg’s mobility platform that blends public transport with shared mobility.',
         'The role requires close collaboration with stakeholders from a publicly owned company, aligning high volumes of regulatory requirements with accessibility standards and a clear product vision.',
@@ -209,9 +209,9 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     erp: {
       title: 'ERP Application',
-      category: 'Enterprise · Automation',
       summary: 'Enterprise ERP system for WBS Training AG supporting 6,000+ courses, 2,000 employees, and government partnerships.',
       image: 'Thumb_erp.png',
+      gallery: ['Thumb_erp.png'],
       description: [
         'I led the end-to-end process from research and service blueprints to MVP prototypes, usability testing, and final UI delivery.',
         'The design translated complex requirements into a core tool for staff and students, improving efficiency and reducing operational bottlenecks.',
@@ -221,9 +221,9 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     telemedicine: {
       title: 'Telemedicine Platform',
-      category: 'Healthcare · Remote care',
       summary: 'Telemedicine platform tailored for seniors with simplified navigation, trust-building visuals, and compliance with medical standards.',
       image: 'Thumb_medicare.png',
+      gallery: ['Thumb_medicare.png'],
       description: [
         'I guided the project from research and journey mapping to prototyping, testing, and development sprints, focusing on accessibility for elderly users.',
         'Interfaces emphasize larger touch targets, intuitive navigation, and a clear visual language to lower cognitive load and build trust.',
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   const openProjectModal = (panel) => {
-    if (!projectModal || !projectModalContent || !projectModalImage || !projectModalCategory || !projectModalTitle || !projectModalSummary || !projectModalMeta || !projectModalDescription) return;
+    if (!projectModal || !projectModalContent || !projectModalImage || !projectModalThumbnails || !projectModalTitle || !projectModalSummary || !projectModalMeta || !projectModalDescription) return;
 
     const panelKey = panel.dataset.panel;
     const previewImg = panel.querySelector('img');
@@ -243,10 +243,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const imageSource = details.image || previewImg?.dataset.fullsize || previewImg?.getAttribute('src') || '';
     const summaryCopy = details.summary || previewImg?.getAttribute('alt') || 'Multi-screen product experience.';
+    const galleryItems = (details.gallery && details.gallery.length ? details.gallery : [imageSource]).filter(Boolean);
+    const primaryImage = galleryItems[0] || imageSource;
 
-    projectModalImage.src = imageSource;
+    projectModalImage.src = primaryImage;
     projectModalImage.alt = `${details.title || panelTitle?.textContent || 'Project'} preview`;
-    projectModalCategory.textContent = details.category || 'Case study';
     projectModalTitle.textContent = details.title || panelTitle?.textContent || 'Project';
     projectModalSummary.textContent = summaryCopy;
 
@@ -264,6 +265,40 @@ document.addEventListener('DOMContentLoaded', function() {
       pill.textContent = tag;
       projectModalMeta.appendChild(pill);
     });
+
+    projectModalThumbnails.innerHTML = '';
+
+    if (galleryItems.length) {
+      const setActiveImage = (src) => {
+        projectModalImage.src = src;
+        projectModalThumbnails
+          .querySelectorAll('.project-modal__thumbnail')
+          .forEach((thumb) => {
+            const isActive = thumb.dataset.src === src;
+            thumb.classList.toggle('is-active', isActive);
+            thumb.setAttribute('aria-pressed', isActive.toString());
+          });
+      };
+
+      galleryItems.forEach((src, index) => {
+        const thumbButton = document.createElement('button');
+        thumbButton.type = 'button';
+        thumbButton.className = 'project-modal__thumbnail';
+        thumbButton.dataset.src = src;
+        thumbButton.setAttribute('aria-label', `Show ${details.title || 'project'} image ${index + 1}`);
+
+        const thumbImage = document.createElement('img');
+        thumbImage.src = src;
+        thumbImage.alt = `${details.title || 'Project'} thumbnail ${index + 1}`;
+
+        thumbButton.appendChild(thumbImage);
+        projectModalThumbnails.appendChild(thumbButton);
+
+        thumbButton.addEventListener('click', () => setActiveImage(src));
+      });
+
+      setActiveImage(primaryImage);
+    }
 
     projectModal.classList.add('is-active');
     projectModal.setAttribute('aria-hidden', 'false');
