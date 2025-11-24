@@ -159,11 +159,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // Desktop panel dragging
   const desktopStage = document.querySelector('.desktop-stage');
   const desktopPanels = document.querySelectorAll('.desktop-panel');
+  let didDrag = false;
 
   if (desktopStage && desktopPanels.length) {
     let highestZ = 30;
-    let didDrag = false;
-
     desktopPanels.forEach(panel => {
       const bar = panel.querySelector('.desktop-panel__bar');
       if (!bar) return;
