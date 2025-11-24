@@ -1113,8 +1113,13 @@ a:hover {
 }
 
 .project-modal__title {
-  font-size: clamp(1.7rem, 3.1vw, 2.35rem);
-  margin: 0;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-kicker);
+  margin: 0 0 var(--spacing-8);
+  color: #ddeddd;
+  text-align: center;
 }
 
 .project-modal__meta {
