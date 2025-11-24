@@ -565,11 +565,9 @@ a:hover {
 
 .hero-text-container {
   position: absolute;
-  bottom: 4vh;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  width: 100vw;
+  inset: auto 0 4vh 0;
+  z-index: 3;
+  width: 100%;
   max-width: none;
   padding: 0 var(--spacing-4);
   background: transparent;
@@ -584,6 +582,7 @@ a:hover {
   white-space: nowrap;
   margin-bottom: 0;
   position: relative;
+  transform: translateY(1.25rem);
 }
 
 .scroll-text {
