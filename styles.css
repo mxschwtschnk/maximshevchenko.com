@@ -119,9 +119,9 @@ body::before {
   animation: float-orb 16s ease-in-out infinite alternate;
 }
 
-body::after {
+.footer::before {
   content: '';
-  position: fixed;
+  position: absolute;
   bottom: -60vh;
   left: -32vw;
   width: clamp(540px, 72vw, 940px);
@@ -1465,6 +1465,8 @@ a:hover {
   border-top: 1px solid var(--lines);
   text-align: left;
   margin-top: auto;
+  position: relative;
+  overflow: hidden;
 }
 
 .footer a {
