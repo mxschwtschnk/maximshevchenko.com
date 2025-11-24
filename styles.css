@@ -62,7 +62,7 @@
   --breakpoint-md: 960px;
   --breakpoint-sm: 860px;
 
-  --project-thumb-height: 260px;
+  --project-thumb-height: 230px;
 
   /* Nav */
   --nav-height: 64px;
@@ -995,7 +995,7 @@ a:hover {
   align-items: stretch;
   justify-content: center;
   padding: var(--spacing-7);
-  background: color-mix(in hsl, rgba(6, 7, 9, 0.78) 75%, rgba(24, 30, 32, 0.65));
+  background: color-mix(in hsl, rgba(6, 7, 9, 0.62) 60%, rgba(24, 30, 32, 0.48));
   backdrop-filter: blur(22px) saturate(150%) brightness(102%);
   -webkit-backdrop-filter: blur(22px) saturate(150%) brightness(102%);
   opacity: 0;
@@ -1071,7 +1071,7 @@ a:hover {
 .project-modal__summary-row {
   display: flex;
   gap: clamp(1rem, 2vw, 1.6rem);
-  align-items: stretch;
+  align-items: flex-start;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -1083,7 +1083,7 @@ a:hover {
   border: none;
   border-radius: 0;
   box-shadow: none;
-  max-width: 320px;
+  max-width: 280px;
   flex: 0 0 auto;
 }
 
@@ -1101,13 +1101,14 @@ a:hover {
   background: none;
   border: none;
   border-radius: 0;
-  padding: clamp(0.35rem, 1vw, 0.75rem) 0;
+  padding: clamp(0.75rem, 1.4vw, 1.1rem) 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: var(--spacing-2);
   max-height: var(--project-thumb-height);
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.35s ease;
   position: relative;
 }
 
@@ -1181,7 +1182,7 @@ a:hover {
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), background 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), border-color 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
   z-index: 2200;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.36);
   backdrop-filter: blur(18px) saturate(160%);
