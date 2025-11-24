@@ -121,9 +121,9 @@ body::before {
 
 body::after {
   content: '';
-  position: fixed;
+  position: absolute;
   left: -28vw;
-  bottom: -42vh;
+  bottom: 0;
   width: clamp(520px, 68vw, 900px);
   aspect-ratio: 1;
   background: radial-gradient(circle at 45% 50%, rgba(72, 118, 94, 0.75), rgba(72, 118, 94, 0.46), transparent 68%);
@@ -131,6 +131,8 @@ body::after {
   opacity: 0.9;
   z-index: 0;
   pointer-events: none;
+  transform: translateY(50%);
+  clip-path: inset(0 0 50% 0);
   animation: float-orb-bottom 12s ease-in-out infinite alternate;
 }
 
