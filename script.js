@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const projectDetails = {
     mobility: {
-      title: 'Mobility Platform',
+      title: 'Transportation App',
       thumb: 'thumb_switch.png',
       image: 'switch1.png',
       gallery: ['switch1.png'],
