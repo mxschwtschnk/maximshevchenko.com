@@ -107,7 +107,7 @@ body.modal-open {
 body::before {
   content: '';
   position: absolute;
-  top: -55vh;
+  top: -25vh;
   right: -45vw;
   width: clamp(520px, 68vw, 880px);
   aspect-ratio: 1;
