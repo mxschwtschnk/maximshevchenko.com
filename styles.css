@@ -1340,7 +1340,7 @@ a:hover {
   position: relative;
   text-align: center;
   padding: var(--spacing-10) 0 var(--spacing-8) 0;
-  overflow: hidden;
+  overflow: visible;
   isolation: isolate;
 }
 
