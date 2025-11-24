@@ -199,7 +199,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const measuredHeight = projectModalThumb.getBoundingClientRect().height;
     if (measuredHeight) {
-      projectModalAccordion.style.setProperty('--project-accordion-height', `${Math.round(measuredHeight)}px`);
+      const accordionStyles = getComputedStyle(projectModalAccordion);
+      const paddingTop = parseFloat(accordionStyles.paddingTop) || 0;
+      const paddingBottom = parseFloat(accordionStyles.paddingBottom) || 0;
+      const toggleHeight = projectModalAccordionToggle?.getBoundingClientRect().height || 0;
+      const descriptionStyles = getComputedStyle(projectModalDescription || projectModalAccordion);
+      const lineHeight = parseFloat(descriptionStyles.lineHeight) || 24;
+      const availableHeight = Math.max(80, Math.round(measuredHeight - paddingTop - paddingBottom));
+      const maxTextHeight = Math.max(48, availableHeight - toggleHeight);
+      const visibleLines = Math.max(2, Math.floor(maxTextHeight / lineHeight));
+      const clampedHeight = Math.round((visibleLines * lineHeight) + toggleHeight);
+
+      projectModalAccordion.style.setProperty('--project-accordion-closed-max', `${Math.round(measuredHeight)}px`);
+      projectModalAccordion.style.setProperty('--project-accordion-height', `${clampedHeight}px`);
+      projectModalAccordion.style.setProperty('--project-accordion-lines', `${visibleLines}`);
     }
   };
   const updateCloseButtonGlow = (event) => {
@@ -271,6 +284,18 @@ document.addEventListener('DOMContentLoaded', function() {
       projectModalDescription.appendChild(p);
     });
 
+    if (projectModalAccordionToggle) {
+      projectModalAccordionToggle.textContent = 'Read more';
+      projectModalAccordionToggle.setAttribute('aria-expanded', 'false');
+      const lastParagraph = projectModalDescription.querySelector('p:last-of-type');
+      if (lastParagraph) {
+        lastParagraph.appendChild(document.createTextNode(' '));
+        lastParagraph.appendChild(projectModalAccordionToggle);
+      } else {
+        projectModalDescription.appendChild(projectModalAccordionToggle);
+      }
+    }
+
     projectModalMeta.innerHTML = '';
     (details.tags || []).forEach(tag => {
       const pill = document.createElement('li');
@@ -289,11 +314,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     projectModalAccordion?.classList.remove('is-open');
-    if (projectModalAccordionToggle) {
-      projectModalAccordionToggle.textContent = 'Read more';
-      projectModalAccordionToggle.setAttribute('aria-expanded', 'false');
-      projectModalAccordion?.appendChild(projectModalAccordionToggle);
-    }
 
     syncAccordionHeight();
     projectModal.classList.add('is-active');
