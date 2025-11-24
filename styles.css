@@ -824,9 +824,9 @@ a:hover {
   text-align: center;
 }
 
-.section-heading::after {
+/*.section-heading::after {
   content: ".";
-}
+}*/
 
 .section-subheading {
   font-size: var(--font-size-h3);
