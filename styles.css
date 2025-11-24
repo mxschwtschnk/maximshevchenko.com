@@ -91,6 +91,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   overflow-x: hidden;
+  padding-top: calc(var(--nav-height) + var(--spacing-4));
   padding-bottom: var(--spacing-10);
 }
 
@@ -149,8 +150,10 @@ a:hover {
 
 /* Navigation */
 .nav {
-  position: sticky;
+  position: fixed;
   top: var(--spacing-4);
+  left: 0;
+  width: 100%;
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -1413,6 +1416,10 @@ a:hover {
   }
 
 @media (max-width: 860px) {
+  body {
+    padding-top: 0;
+  }
+
   .desktop-nav {
     display: none;
   }
