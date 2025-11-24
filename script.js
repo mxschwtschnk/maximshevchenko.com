@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', function() {
     erp: {
       title: 'ERP Application',
       image: 'Thumb_erp.png',
-      gallery: ['erp1.png'],
+      gallery: ['erp1.png', 'erp2.png', 'erp3.png'],
       description: [
         'I led the end-to-end process from research and service blueprints to MVP prototypes, usability testing, and final UI delivery.',
         'The design translated complex requirements into a core tool for staff and students, improving efficiency and reducing operational bottlenecks.',
