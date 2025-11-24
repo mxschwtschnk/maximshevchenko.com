@@ -651,7 +651,6 @@ a:hover {
   z-index: 3;
   width: 100%;
   max-width: none;
-  padding: 0 var(--spacing-4);
   background: transparent;
   pointer-events: none;
   mix-blend-mode: difference;
